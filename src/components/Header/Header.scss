@@ -1,0 +1,40 @@
+.header {
+  width: 1440px;
+  height: 80px;
+  background: #ffffff;
+  padding: 14px 3px 0px 22px;
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    display: inline-block;
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__authentication {
+  }
+  &__button {
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+    border: none;
+    outline: none;
+    background: #ffffff;
+    margin-right: 19px;
+    margin-left: 37px;
+    &--active {
+      width: 109px;
+      height: 51px;
+      border: 1px solid #52c41a;
+      border-radius: 5px;
+      color: #52c41a;
+    }
+  }
+}

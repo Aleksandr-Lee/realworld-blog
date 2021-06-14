@@ -1,0 +1,22 @@
+html {
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 1440px;
+  height: 977px;
+}
+
+*,
+p,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0 auto;
+  width: 1440px;
+  height: 977px;
+  background: #e5e5e5;
+}
