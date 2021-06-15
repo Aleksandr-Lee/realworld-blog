@@ -1,7 +1,7 @@
 .article {
   width: 941px;
-  height: 140px;  
-  background: #FFFFFF;
+  height: 140px;
+  background: #ffffff;
   border-radius: 5px;
   list-style: none;
   padding: 10px 14px 24px 19px;
@@ -10,24 +10,26 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; 
+    align-items: flex-start;
   }
   &__data {
     display: flex;
-    align-items: center; 
+    align-items: center;
   }
   &__title {
     font-family: Inter;
     font-weight: normal;
     font-size: 20px;
     line-height: 28px;
-    color: #1890FF;
+    color: #1890ff;
     margin-right: 13px;
+    margin-bottom: 1px;
   }
   &__like {
     width: 16px;
-    height: 14px;  
+    height: 14px;
     margin-right: 5px;
+    cursor: pointer;
   }
   &__likeCount {
     font-family: Inter;
@@ -37,20 +39,27 @@
     color: rgba(0, 0, 0, 0.75);
   }
   &__tag {
+    display: inline-block;
     font-family: Inter;
     font-weight: normal;
     font-size: 12px;
     line-height: 15px;
     color: rgba(0, 0, 0, 0.75);
-    background: #FFFFFF;
+    background: #ffffff;
     height: 20px;
     padding: 2.5px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 2px;
+    cursor: pointer;
+    margin-top: 3px;
     margin-right: 8px;
     margin-bottom: 10px;
   }
   &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
     width: 682px;
     font-family: Inter;
     font-weight: normal;
@@ -61,7 +70,7 @@
 }
 .profile {
   display: flex;
-  align-items: center; 
+  align-items: center;
   &__data {
     margin-right: 12px;
   }
@@ -72,7 +81,7 @@
     line-height: 28px;
     color: rgba(0, 0, 0, 0.85);
   }
-  &__date{
+  &__date {
     font-family: Inter;
     font-weight: normal;
     font-size: 12px;
@@ -82,7 +91,8 @@
   &__foto {
     width: 46px;
     height: 46px;
-    background: red;  
+    background: red;
     border-radius: 25px;
+    cursor: pointer;
   }
 }
