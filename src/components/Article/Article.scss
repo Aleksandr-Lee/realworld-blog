@@ -1,0 +1,88 @@
+.article {
+  width: 941px;
+  height: 140px;  
+  background: #FFFFFF;
+  border-radius: 5px;
+  list-style: none;
+  padding: 10px 14px 24px 19px;
+  margin-bottom: 26px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+  }
+  &__data {
+    display: flex;
+    align-items: center; 
+  }
+  &__title {
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1890FF;
+    margin-right: 13px;
+  }
+  &__like {
+    width: 16px;
+    height: 14px;  
+    margin-right: 5px;
+  }
+  &__likeCount {
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+  &__tag {
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.75);
+    background: #FFFFFF;
+    height: 20px;
+    padding: 2.5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+  }
+  &__text {
+    width: 682px;
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+}
+.profile {
+  display: flex;
+  align-items: center; 
+  &__data {
+    margin-right: 12px;
+  }
+  &__name {
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__date{
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  &__foto {
+    width: 46px;
+    height: 46px;
+    background: red;  
+    border-radius: 25px;
+  }
+}
