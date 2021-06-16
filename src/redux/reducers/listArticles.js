@@ -2,6 +2,8 @@ import actionTypes from '../actionsTypes';
 
 const initialState = {
   articles: [],
+  completeDownload: false,
+  errorDownload: false,
 };
 
 const articlesReducer = (state = initialState, action) => {
@@ -10,6 +12,16 @@ const articlesReducer = (state = initialState, action) => {
       return {
         ...state,
         articles: action.articles,
+      };
+    case actionTypes.completeDownload:
+      return {
+        ...state,
+        completeDownload: true,
+      };
+    case actionTypes.errorDownload:
+      return {
+        ...state,
+        errorDownload: true,
       };
     default:
       return state;

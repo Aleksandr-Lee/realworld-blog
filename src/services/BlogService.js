@@ -10,7 +10,7 @@ export default class BlogService {
   }
 
   async getListArticles() {
-    const url = `${this.apiBase}articles`;
+    const url = `${this.apiBase}articles?limit=5`;
     const res = await this.getResource(url);
     return res;
   }

@@ -5,3 +5,11 @@ export const actionListArticles = (articles) => ({
   type: actionTypes.getArticles,
   articles,
 });
+
+export const actionCompleteDownload = () => ({
+  type: actionTypes.completeDownload,
+});
+
+export const actionErrorDownload = () => ({
+  type: actionTypes.errorDownload,
+});
