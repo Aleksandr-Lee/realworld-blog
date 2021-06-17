@@ -38,10 +38,10 @@ const ListArticles = () => {
   });
 
   return (
-    <ul className="container">
-      {loadingIndicator}
-      {article}
-    </ul>
+      <ul className="container">
+        {loadingIndicator}
+        {article}
+      </ul>
   );
 };
 

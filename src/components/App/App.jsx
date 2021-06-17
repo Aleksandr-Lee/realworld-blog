@@ -33,22 +33,22 @@ const App = () => {
         dispatch(actionCompleteDownload());
         dispatch(actionErrorDownload());
       });
-  }, [dispatch, actionErrorDownload]);
+  }, [dispatch]);
 
   useEffect(() => {
     articlesDisplay();
   }, [articlesDisplay]);
 
-  handlePageClick = () => {
-    // articlesDisplay();
-    console.log('click');
-  };
+  //   handlePageClick = () => {
+  //     // articlesDisplay();
+  //     console.log('click');
+  //   };
 
   return (
     <div className="App">
       <Header />
       <ListArticles />
-      <PaginationArticle handlePageClick={handlePageClick} />
+      <PaginationArticle />
     </div>
   );
 };

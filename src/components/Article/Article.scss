@@ -1,6 +1,7 @@
 .article {
   width: 941px;
   height: 140px;
+  margin: 0 auto;
   background: #ffffff;
   border-radius: 5px;
   list-style: none;
@@ -75,6 +76,7 @@
     margin-right: 12px;
   }
   &__name {
+    display: block;
     font-family: Inter;
     font-weight: normal;
     font-size: 18px;
@@ -91,7 +93,6 @@
   &__foto {
     width: 46px;
     height: 46px;
-    background: red;
     border-radius: 25px;
     cursor: pointer;
   }

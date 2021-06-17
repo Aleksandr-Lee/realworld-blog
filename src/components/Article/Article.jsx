@@ -32,14 +32,14 @@ const Article = ({
           <div className="article__data">
             <h1 className="article__title">{title}</h1>
             <img className="article__like" src={like} alt="like" />
-            <p className="article__likeCount">{favoritesCount}</p>
+            <span className="article__likeCount">{favoritesCount}</span>
           </div>
           {tag}
         </div>
         <div className="profile">
           <div className="profile__data">
-            <p className="profile__name">{username}</p>
-            <p className="profile__date">{dateArticle}</p>
+            <span className="profile__name">{username}</span>
+            <span className="profile__date">{dateArticle}</span>
           </div>
           <img className="profile__foto" src={image} alt="foto" />
         </div>
