@@ -1,9 +1,9 @@
-// html {
-//   margin: 0 auto;
-//   box-sizing: border-box;
-//   width: 1440px;
-//   height: 977px;
-// }
+html {
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
 
 *,
 p,
@@ -14,9 +14,9 @@ p,
   padding: 0;
 }
 
-// body {
-//   margin: 0 auto;
-//   width: 1440px;
-//   height: 977px;
-// //   background-color: #e5e5e5;
-// }
+body {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  background-color: #ebeef3 !important;
+}

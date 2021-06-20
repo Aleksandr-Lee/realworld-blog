@@ -9,8 +9,14 @@ export default class BlogService {
     return res.json();
   }
 
-  async getListArticles() {
-    const url = `${this.apiBase}articles?limit=5`;
+  async getListArticles(offset = 0) {
+    const url = `${this.apiBase}articles?limit=5&offset=${offset}`;
+    const res = await this.getResource(url);
+    return res;
+  }
+
+  async getArticle(slug) {
+    const url = `${this.apiBase}articles/${slug}`;
     const res = await this.getResource(url);
     return res;
   }

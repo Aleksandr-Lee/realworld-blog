@@ -1,13 +1,16 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable arrow-body-style */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
-        <h1 className="header__title">Realdworld Blog</h1>
+        <Link to="/articles" className="header__title">
+          Realdworld Blog
+        </Link>
         <div className="header__authentication">
           <button className="header__button">Sign In</button>
           <button className="header__button header__button--active ">

@@ -1,13 +1,20 @@
 import actionTypes from '../actionsTypes';
 
 const initialState = {
-  articles: [],
+  articlesList: [],
+  articles: null,
   completeDownload: false,
   errorDownload: false,
+  articlesCount: 1,
 };
 
 const articlesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.getArticlesList:
+      return {
+        ...state,
+        articlesList: action.articlesList,
+      };
     case actionTypes.getArticles:
       return {
         ...state,
@@ -22,6 +29,11 @@ const articlesReducer = (state = initialState, action) => {
       return {
         ...state,
         errorDownload: true,
+      };
+    case actionTypes.articlesCount:
+      return {
+        ...state,
+        articlesCount: state.articlesCount + action.articlesCount - 1,
       };
     default:
       return state;
