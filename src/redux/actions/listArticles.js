@@ -23,3 +23,8 @@ export const actionArticlesCount = (articlesCount) => ({
   type: actionTypes.articlesCount,
   articlesCount,
 });
+
+// export const actionPage = (page) => ({
+// 	type: actionTypes.page,
+// 	page,
+//  });

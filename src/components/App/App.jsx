@@ -23,11 +23,11 @@ const App = () => {
   const articlesList = useSelector(
     (state) => state.articlesReducer.articlesList
   );
-  const articles = useSelector((state) => state.articlesReducer.articles);
+  //   const articles = useSelector((state) => state.articlesReducer.articles);
   const articlesCount = useSelector(
     (state) => state.articlesReducer.articlesCount
   );
-  //   console.log(articlesList);
+  console.log(articlesCount);
   const articlesDisplay = useCallback(
     (offset) => {
       new BlogService()
@@ -56,7 +56,6 @@ const App = () => {
     articlesDisplay(offset);
   };
 
-
   const pagination = articlesList.length ? (
     <PaginationArticle handlePageClick={handlePageClick} />
   ) : null;
@@ -72,7 +71,7 @@ const App = () => {
         <Route
           path="/articles/:slug"
           render={({ match }) => {
-            return <ArticlePage slug={match.params}/>;
+            return <ArticlePage slug={match.params} />;
           }}
         />
       </div>

@@ -4,5 +4,6 @@ const actionTypes = {
   completeDownload: 'COMPLETE_DOWNLOAD',
   errorDownload: 'ERROR_DOWNLOAD',
   articlesCount: 'ARTICLES_COUNT',
+  //   page: 'CHANGE_PAGE',
 };
 export default actionTypes;

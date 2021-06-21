@@ -6,6 +6,7 @@ const initialState = {
   completeDownload: false,
   errorDownload: false,
   articlesCount: 1,
+  //   page: 1,
 };
 
 const articlesReducer = (state = initialState, action) => {
@@ -35,6 +36,11 @@ const articlesReducer = (state = initialState, action) => {
         ...state,
         articlesCount: state.articlesCount + action.articlesCount - 1,
       };
+    //  case actionTypes.page:
+    //    return {
+    //      ...state,
+    //      page: action.page,
+    //    };
     default:
       return state;
   }
