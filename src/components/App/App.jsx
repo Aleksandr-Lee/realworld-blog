@@ -15,21 +15,22 @@ import {
   actionCompleteDownload,
   actionErrorDownload,
   actionArticlesCount,
+  actionPage,
 } from '../../redux/actions/listArticles';
 import './App.scss';
 
 const App = () => {
   const dispatch = useDispatch();
-  const articlesList = useSelector(
-    (state) => state.articlesReducer.articlesList
+  const completeDownload = useSelector(
+    (state) => state.articlesReducer.completeDownload
   );
-  //   const articles = useSelector((state) => state.articlesReducer.articles);
   const articlesCount = useSelector(
     (state) => state.articlesReducer.articlesCount
   );
-  console.log(articlesCount);
+
   const articlesDisplay = useCallback(
     (offset) => {
+      dispatch(actionCompleteDownload());
       new BlogService()
         .getListArticles(offset)
         .then((articles) => {
@@ -37,7 +38,6 @@ const App = () => {
           if (articlesCount === 1) {
             dispatch(actionArticlesCount(articles.articlesCount));
           }
-          dispatch(actionCompleteDownload());
         })
         .catch(() => {
           dispatch(actionCompleteDownload());
@@ -51,12 +51,13 @@ const App = () => {
     articlesDisplay();
   }, [articlesDisplay]);
 
-  const handlePageClick = (page) => {
+  const handlePageClick = (page = 1) => {
+    dispatch(actionPage(page));
     const offset = 0 + (page - 1) * 5;
     articlesDisplay(offset);
   };
 
-  const pagination = articlesList.length ? (
+  const pagination = completeDownload ? (
     <PaginationArticle handlePageClick={handlePageClick} />
   ) : null;
 

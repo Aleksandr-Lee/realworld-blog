@@ -14,6 +14,9 @@ export const actionArticles = (articles) => ({
 export const actionCompleteDownload = () => ({
   type: actionTypes.completeDownload,
 });
+export const actionCompleteDownloadArticle = () => ({
+  type: actionTypes.completeDownloadArticle,
+});
 
 export const actionErrorDownload = () => ({
   type: actionTypes.errorDownload,
@@ -24,7 +27,7 @@ export const actionArticlesCount = (articlesCount) => ({
   articlesCount,
 });
 
-// export const actionPage = (page) => ({
-// 	type: actionTypes.page,
-// 	page,
-//  });
+export const actionPage = (page) => ({
+  type: actionTypes.page,
+  page,
+});

@@ -5,7 +5,11 @@ import format from 'date-fns/format';
 import ReactMarkdown from 'react-markdown';
 import { v4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionArticles } from '../../redux/actions/listArticles';
+import {
+  actionArticles,
+  actionCompleteDownloadArticle,
+} from '../../redux/actions/listArticles';
+import LoadingIndicator from '../LoadingIndicator';
 import BlogService from '../../services/BlogService';
 import like from '../../Assets/Images/like.svg';
 import './ArticlePage.scss';
@@ -13,8 +17,11 @@ import './ArticlePage.scss';
 const ArticlePage = ({ slug }) => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articlesReducer.articles);
-
+  const completeDownloadArticle = useSelector(
+    (state) => state.articlesReducer.completeDownloadArticle
+  );
   const getSlug = useCallback(() => {
+    dispatch(actionCompleteDownloadArticle());
     new BlogService().getArticle(slug.slug).then((articles) => {
       dispatch(actionArticles(articles.article));
     });
@@ -23,6 +30,10 @@ const ArticlePage = ({ slug }) => {
   useEffect(() => {
     getSlug();
   }, [getSlug]);
+
+  if (!completeDownloadArticle) {
+    return <LoadingIndicator />;
+  }
 
   if (articles !== null) {
     const dateArticle = format(new Date(articles.updatedAt), 'MMMM dd, yyyy');

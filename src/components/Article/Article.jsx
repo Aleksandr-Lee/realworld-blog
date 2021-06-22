@@ -5,7 +5,6 @@ import format from 'date-fns/format';
 import { v4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import like from '../../Assets/Images/like.svg';
-// import noAvatar from '../../Assets/Images/noAvatar.svg';
 import './Article.scss';
 
 const Article = ({
@@ -18,7 +17,6 @@ const Article = ({
   tagList,
   slug,
 }) => {
-	
   const dateArticle = format(new Date(updatedAt), 'MMMM dd, yyyy');
   const tag = tagList.map((item) => (
     <span className="article__tag" key={v4()}>
