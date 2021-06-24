@@ -5,7 +5,7 @@
   margin-bottom: 26px;
   &__wrapper {
     width: 1000px;
-    margin: 0 auto;
+    margin: -3px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,19 +23,16 @@
   &__authentication {
   }
   &__button {
+    display: inline-block;
     font-family: Inter;
     font-weight: normal;
     font-size: 18px;
-    line-height: 28px;
     color: rgba(0, 0, 0, 0.85);
-    border: none;
-    outline: none;
+    border: 1px solid transparent;
     background: #ffffff;
-    margin-right: 19px;
-    margin-left: 37px;
-    &--active {
-      width: 109px;
-      height: 51px;
+    margin-left: 30px;
+    padding: 13px 18px;
+    &:hover {
       border: 1px solid #52c41a;
       border-radius: 5px;
       color: #52c41a;

@@ -10,6 +10,7 @@ import ListArticles from '../ListArticles';
 import BlogService from '../../services/BlogService';
 import PaginationArticle from '../PaginationArticle';
 import ArticlePage from '../ArticlePage';
+import SignIn from '../SignIn';
 import {
   actionListArticles,
   actionCompleteDownload,
@@ -75,6 +76,7 @@ const App = () => {
             return <ArticlePage slug={match.params} />;
           }}
         />
+        <Route path="/sign-in" component={SignIn} exact />
       </div>
     </BrowserRouter>
   );

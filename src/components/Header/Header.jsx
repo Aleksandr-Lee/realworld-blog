@@ -12,10 +12,12 @@ const Header = () => {
           Realdworld Blog
         </Link>
         <div className="header__authentication">
-          <button className="header__button">Sign In</button>
-          <button className="header__button header__button--active ">
+          <Link to="/sign-in" className="header__button">
+            Sign In
+          </Link>
+          <Link to="/sign-up" className="header__button ">
             Sign Up
-          </button>
+          </Link>
         </div>
       </div>
     </header>
