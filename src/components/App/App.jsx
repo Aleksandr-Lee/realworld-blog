@@ -11,6 +11,7 @@ import BlogService from '../../services/BlogService';
 import PaginationArticle from '../PaginationArticle';
 import ArticlePage from '../ArticlePage';
 import SignIn from '../SignIn';
+import SignUp from '../SignUp';
 import {
   actionListArticles,
   actionCompleteDownload,
@@ -77,6 +78,7 @@ const App = () => {
           }}
         />
         <Route path="/sign-in" component={SignIn} exact />
+        <Route path="/sign-up" component={SignUp} exact />
       </div>
     </BrowserRouter>
   );
