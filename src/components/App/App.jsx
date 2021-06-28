@@ -29,6 +29,7 @@ const App = () => {
   const articlesCount = useSelector(
     (state) => state.articlesReducer.articlesCount
   );
+  const isAuth = useSelector((state) => state.usersReducer.isAuth);
 
   const articlesDisplay = useCallback(
     (offset) => {
@@ -63,6 +64,7 @@ const App = () => {
     <PaginationArticle handlePageClick={handlePageClick} />
   ) : null;
 
+  console.log(isAuth);
   return (
     <BrowserRouter>
       <div className="App">
@@ -77,7 +79,8 @@ const App = () => {
             return <ArticlePage slug={match.params} />;
           }}
         />
-        <Route path="/sign-in" component={SignIn} exact />
+        {!isAuth && <Route path="/sign-in" component={SignIn} exact />}
+
         <Route path="/sign-up" component={SignUp} exact />
       </div>
     </BrowserRouter>

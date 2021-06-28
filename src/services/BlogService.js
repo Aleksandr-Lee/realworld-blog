@@ -1,11 +1,12 @@
+/* eslint-disable object-shorthand */
 export default class BlogService {
   apiBase = 'https://conduit.productionready.io/api/';
 
-  async getResource(url) {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Ошибка, данные не получены ${res.status}`);
-    }
+  async getResource(url, postRequest = null) {
+    const res = await fetch(url, postRequest);
+   //   if (!res.ok) {
+   //     throw new Error(`Ошибка, данные не получены ${res.status}`);
+   //   }
     return res.json();
   }
 
@@ -18,6 +19,25 @@ export default class BlogService {
   async getArticle(slug) {
     const url = `${this.apiBase}articles/${slug}`;
     const res = await this.getResource(url);
+    return res;
+  }
+
+  async setUserRegistration(username, email, password) {
+    const url = `${this.apiBase}users`;
+    const postRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        user: {
+          username: username,
+          email: email,
+          password: password,
+        },
+      }),
+    };
+    const res = await this.getResource(url, postRequest);
     return res;
   }
 }

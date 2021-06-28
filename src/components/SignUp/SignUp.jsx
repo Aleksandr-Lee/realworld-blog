@@ -1,7 +1,10 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable no-shadow */
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import BlogService from '../../services/BlogService';
 import './SignUp.scss';
 
 const SignUp = () => {
@@ -11,22 +14,34 @@ const SignUp = () => {
     formState: { errors },
     watch,
   } = useForm({ mode: 'onSubmit' });
-  const onSubmit = (data) => console.log('отправлено', data);
 
-  //   console.log(
-  //     register('password', {
-  //       onChange(e) {
-  //         console.log(e.target);
-  //       },
-  //     })
-  //   );
+  const onSubmit = async ({ userName, emailAddress, password }) => {
+    new BlogService()
+      .setUserRegistration(userName, emailAddress, password)
+      .then((users) => {
+        console.log(users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    //  const res = await fetch('https://conduit.productionready.io/api/users', {
+    //    method: 'POST',
+    //    headers: {
+    //      'Content-Type': 'application/json;charset=utf-8',
+    //    },
+    //    body: JSON.stringify({
+    //      user: {
+    //        username: userName,
+    //        email: emailAddress,
+    //        password: password,
+    //      },
+    //    }),
+    //  });
+    //  const result = await res.json();
+    //  //  result.then((data) => console.log(data))
+    //  console.log(result);
+  };
 
-  //   console.log(errors.userName?.type);
-
-  //   const check =
-  //   watch('checkbox')
-  //       ? 'form__checkbox--label'
-  //       : 'form__checkbox--labelErr';
   return (
     <div className="regForm">
       <div className="regForm__container">
@@ -85,16 +100,16 @@ const SignUp = () => {
             id="password"
             {...register('password', {
               required: true,
-              minLength: 6,
+              minLength: 8,
               maxLength: 40,
             })}
           />
-          {errors.password?.type === 'minLength' ||
-            (errors.password?.type === 'maxLength' && (
-              <span className="form__errorMessage">
-                Your password needs to be at least 6 characters.
-              </span>
-            ))}
+          {(errors.password?.type === 'minLength' ||
+            errors.password?.type === 'maxLength') && (
+            <span className="form__errorMessage">
+              Your password needs to be at least 6 characters.
+            </span>
+          )}
           {errors.password?.type === 'required' && (
             <span className="form__errorMessage">This is a required field</span>
           )}
