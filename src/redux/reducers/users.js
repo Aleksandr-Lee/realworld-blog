@@ -1,4 +1,4 @@
-// import actionTypes from '../actionsTypes';
+import actionTypes from '../actionsTypes';
 
 const initialState = {
   users: {},
@@ -6,13 +6,25 @@ const initialState = {
 };
 
 const usersReducer = (state = initialState, action) => {
-  // console.log(action.user)
+  console.log(action.users);
   switch (action.type) {
-    case 'SET_USER':
+    case actionTypes.getUser:
       return {
         ...state,
         users: action.users,
         isAuth: true,
+      };
+    case actionTypes.logOut:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        users: {},
+        isAuth: false,
+      };
+    case actionTypes.updateUser:
+      return {
+        ...state,
+        users: action.users,
       };
     default:
       return state;

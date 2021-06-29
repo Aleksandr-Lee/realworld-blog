@@ -5,7 +5,7 @@
   margin-bottom: 26px;
   &__wrapper {
     width: 1000px;
-    margin: -3px auto;
+    // margin: -3px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,6 +22,37 @@
   }
   &__authentication {
   }
+  &__user {
+    display: flex;
+    align-items:center
+  }
+  &__btnArticle {
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 14px;
+    color: #52C41A;
+    background: #ffffff;
+    padding: 0 10px;
+    margin-right: 26px;
+  }
+  &__userName {
+    margin-right: 13px;
+  }
+  &__userFoto {
+    margin-right: 27px;
+  }
+  &__logOut {
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+    font-family: Inter;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 10px 18px;
+    background: #ffffff;
+    margin-right: 22px;
+  }
   &__button {
     display: inline-block;
     font-family: Inter;
@@ -32,7 +63,7 @@
     background: #ffffff;
     margin-left: 30px;
     padding: 13px 18px;
-    &:hover {
+    &--active {
       border: 1px solid #52c41a;
       border-radius: 5px;
       color: #52c41a;

@@ -12,6 +12,7 @@ import PaginationArticle from '../PaginationArticle';
 import ArticlePage from '../ArticlePage';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
+import Profile from '../Profile';
 import {
   actionListArticles,
   actionCompleteDownload,
@@ -64,7 +65,6 @@ const App = () => {
     <PaginationArticle handlePageClick={handlePageClick} />
   ) : null;
 
-  console.log(isAuth);
   return (
     <BrowserRouter>
       <div className="App">
@@ -80,8 +80,8 @@ const App = () => {
           }}
         />
         {!isAuth && <Route path="/sign-in" component={SignIn} exact />}
-
-        <Route path="/sign-up" component={SignUp} exact />
+        {!isAuth && <Route path="/sign-up" component={SignUp} exact />}
+        {isAuth && <Route path="/profile" component={Profile} exact />}
       </div>
     </BrowserRouter>
   );

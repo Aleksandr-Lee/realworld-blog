@@ -4,9 +4,9 @@ export default class BlogService {
 
   async getResource(url, postRequest = null) {
     const res = await fetch(url, postRequest);
-   //   if (!res.ok) {
-   //     throw new Error(`Ошибка, данные не получены ${res.status}`);
-   //   }
+    //   if (!res.ok) {
+    //     throw new Error(`Ошибка, данные не получены ${res.status}`);
+    //   }
     return res.json();
   }
 
@@ -34,6 +34,45 @@ export default class BlogService {
           username: username,
           email: email,
           password: password,
+        },
+      }),
+    };
+    const res = await this.getResource(url, postRequest);
+    return res;
+  }
+
+  async getUsers(email, password) {
+    const url = `${this.apiBase}users/login`;
+    const postRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        user: {
+          email: email,
+          password: password,
+        },
+      }),
+    };
+    const res = await this.getResource(url, postRequest);
+    return res;
+  }
+
+  async updateUser(email, bio = 'I like to skateboard', image = null, token) {
+    console.log(email, bio, image, token);
+    const url = `${this.apiBase}user`;
+    const postRequest = {
+      method: 'PUT',
+      headers: {
+        //  'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Token jwt.${token}`,
+      },
+      body: JSON.stringify({
+        user: {
+          email: email,
+          bio: bio,
+          image: image,
         },
       }),
     };

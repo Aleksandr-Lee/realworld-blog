@@ -1,4 +1,4 @@
-.regForm {
+.editProfile {
   margin: 0 auto;
   width: 374px;
   height: 100%;
@@ -12,7 +12,6 @@
     0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
   border-radius: 6px;
   margin-top: 59px;
-
   &__container {
     padding: 0 32px 0 32px;
   }
@@ -28,6 +27,7 @@
     margin: 21px 0px;
   }
 }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -49,32 +49,6 @@
       color: #bfbfbf;
     }
   }
-  &__line {
-    margin-top: 13px;
-    border: 1px solid #e8e8e8;
-  }
-  &__checkbox {
-    display: flex;
-    align-items: baseline;
-    &--input {
-      margin-top: 14px;
-      margin-right: 12px;
-    }
-    &--label {
-      font-family: Roboto;
-      font-size: 14px;
-      line-height: 22px;
-      color: #595959;
-      margin-top: 12px;
-    }
-    //  &--labelErr {
-    //    font-family: Roboto;
-    //    font-size: 14px;
-    //    line-height: 22px;
-    //    color: red;
-    //    margin-top: 12px;
-    //  }
-  }
 
   &__submit {
     font-family: Roboto;
@@ -86,13 +60,6 @@
     border-radius: 4px;
     margin: 10px 0px;
     padding: 8px 16px;
-  }
-  &__errorMessage {
-    font-family: Roboto;
-    font-size: 14px;
-    line-height: 22px;
-    color: #f5222d;
-    margin-top: -13px;
   }
 }
 .footer {

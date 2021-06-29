@@ -80,8 +80,7 @@ const SignUp = () => {
             id="emailAddress"
             {...register('emailAddress', {
               required: true,
-              pattern:
-                /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i,
+              pattern: /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i,
             })}
           />
           {errors.emailAddress?.type === 'pattern' && (

@@ -1,30 +1,31 @@
 /* eslint-disable no-shadow */
-/* eslint-disable arrow-body-style */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import './SignIn.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionGetUser } from '../../redux/actions/users';
+import { actionUpdateUser } from '../../redux/actions/users';
 import BlogService from '../../services/BlogService';
+import './Profile.scss';
 
-const SignIn = () => {
+const Profile = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.usersReducer.users);
+  const users = useSelector((state) => state.usersReducer.users);
   const {
     register,
     handleSubmit,
     formState: { errors },
     //  watch,
   } = useForm();
-  console.log(user.user);
-  const onSubmit = async ({ emailAddress, password }) => {
+
+  //   const onSubmit = (data) => {
+  //     console.log(data);
+  //   };
+  console.log(users.user.token);
+  const onSubmit = async ({ emailAddress, bio, avatarImage }) => {
+    console.log(avatarImage);
     new BlogService()
-      .getUsers(emailAddress, password)
+      .updateUser(emailAddress, bio, avatarImage, users.user.token)
       .then((users) => {
-        console.log();
-        dispatch(actionGetUser(users));
-        //   localStorage.setItem('token', users.user.token);
+        dispatch(actionUpdateUser(users));
         console.log(users);
       })
       .catch((error) => {
@@ -32,38 +33,40 @@ const SignIn = () => {
       });
   };
 
-  // const onSubmit = async (data) => {
-  //   const res = await fetch(
-  //     'https://conduit.productionready.io/api/users/login',
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json;charset=utf-8',
-  //       },
-  //       body: JSON.stringify({
-  //         user: {
-  //           email: data.emailAddress,
-  //           password: data.password,
-  //         },
-  //       }),
-  //     }
-  //   );
-  //   const result = await res.json();
-  //   //  result.then((data) => console.log(data))
-  //   dispatch(actionUserRegistration(result));
-  //   //  localStorage.setItem('token', result.user.token);
-  //   console.log(result);
-  // };
-
   return (
-    <div className="loginForm">
-      <div className="loginForm__container">
-        <h1 className="loginForm__title">Sign In</h1>
+    <div className="editProfile">
+      <div className="editProfile__container">
+        <h1 className="editProfile__title">Edit Profile</h1>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <label className="form__label" htmlFor="userName">
+            Username
+          </label>
+          <input
+            defaultValue={users.user.username}
+            className="form__input"
+            type="text"
+            placeholder="Username"
+            id="userName"
+            {...register('userName', {
+              required: true,
+              minLength: 3,
+              maxLength: 20,
+            })}
+          />
+          {(errors.userName?.type === 'minLength' ||
+            errors.userName?.type === 'maxLength') && (
+            <span className="form__errorMessage">
+              Username must be between 3 and 20 characters
+            </span>
+          )}
+          {errors.userName?.type === 'required' && (
+            <span className="form__errorMessage">This is a required field</span>
+          )}
           <label className="form__label" htmlFor="emailAddress">
             Email address
           </label>
           <input
+            defaultValue={users.user.email}
             className="form__input"
             type="text"
             placeholder="Email address"
@@ -81,7 +84,7 @@ const SignIn = () => {
             <span className="form__errorMessage">This is a required field</span>
           )}
           <label className="form__label" htmlFor="password">
-            Password
+            New password
           </label>
           <input
             className="form__input"
@@ -103,19 +106,30 @@ const SignIn = () => {
           {errors.password?.type === 'required' && (
             <span className="form__errorMessage">This is a required field</span>
           )}
+          <label className="form__label" htmlFor="avatarImage">
+            Avatar image (url)
+          </label>
+          <input
+            className="form__input"
+            type="text"
+            placeholder="Avatar image"
+            id="avatarImage"
+            {...register('avatarImage', {
+              required: false,
+              pattern:
+                /(^https?:\/\/)?[a-z0-9~_\-.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i,
+            })}
+          />
+          {errors.avatarImage?.type === 'pattern' && (
+            <span className="form__errorMessage">Invalid url address</span>
+          )}
           <button className="form__submit" type="submit">
-            Login
+            Save
           </button>
         </form>
-        <div className="footer">
-          <span className="footer__text">Don’t have an account?</span>
-          <Link to="/sign-up" className="footer__text footer__link">
-            Sign Up
-          </Link>
-        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default Profile;
