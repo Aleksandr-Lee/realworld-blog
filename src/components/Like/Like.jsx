@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
 import { actionArticles } from '../../redux/actions/listArticles';
-import './Like.scss';
+import classes from './Like.module.scss';
 
 const Like = ({ favorited, favoritesCount, slug }) => {
   const dispatch = useDispatch();
@@ -37,10 +37,12 @@ const Like = ({ favorited, favoritesCount, slug }) => {
       <button
         label="like"
         type="button"
-        className={`like__button like__button--${like ? 'liked' : 'noLike'}`}
+        className={`${classes.like__button} ${classes.like__button} ${
+          like ? `${classes.liked}` : `${classes.noLike}`
+        }`}
         onClick={onLiked}
       />
-      <span className="like__likeCount">{likeCount}</span>
+      <span className={classes.like__likeCount}>{likeCount}</span>
     </>
   );
 };

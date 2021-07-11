@@ -12,7 +12,7 @@ import CreateArticle from '../CreateArticle';
 import EditArticle from '../EditArticle';
 import PrivateRoute from '../PrivateRoute';
 import { actionGetUser } from '../../redux/actions/users';
-import './App.scss';
+import classes from './App.module.scss';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className={classes.App}>
         <Header />
         <Switch>
           <Route path="/" component={ListArticles} exact />
@@ -47,7 +47,9 @@ const App = () => {
           {isAuth && <Route path="/profile" component={Profile} exact />}
           <PrivateRoute path="/new-article" component={CreateArticle} exact />
 
-          <Route render={() => <h2 className="noPage">Page not found</h2>} />
+          <Route
+            render={() => <h2 className={classes.noPage}>Page not found</h2>}
+          />
         </Switch>
       </div>
     </BrowserRouter>

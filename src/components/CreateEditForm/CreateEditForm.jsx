@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import './CreateEditForm.scss';
+import classes from './CreateEditForm.module.scss';
 
 const CreateEditForm = ({ title, submit, valueInput }) => {
   const tagValue = !valueInput.tagList.length ? [''] : valueInput.tagList;
@@ -36,7 +36,7 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
   const tagsList = tags.map((_tag, index) => (
     <div key={String(index)}>
       <input
-        className="formTags__tags"
+        className={classes.formTags__tags}
         type="text"
         placeholder="Tag"
         value={tags[index]}
@@ -44,7 +44,7 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
       />
       <button
         disabled={tags.length === 1}
-        className="formTags__delete"
+        className={classes.formTags__delete}
         type="button"
         onClick={() => onDeleteTag(index)}
       >
@@ -54,16 +54,18 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
   ));
 
   return (
-    <div className="createEditArticleForm">
-      <div className="createEditArticleForm__container">
-        <h1 className="createEditArticleForm__title">{title}</h1>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="form__label" htmlFor="title">
+    <div className={classes.createEditArticleForm}>
+      <div className={classes.createEditArticleForm__container}>
+        <h1 className={classes.createEditArticleForm__title}>{title}</h1>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <label className={classes.form__label} htmlFor="title">
             Title
           </label>
           <input
             className={
-              errors.title?.type ? 'form__input--error' : 'form__input'
+              errors.title?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Title"
@@ -74,16 +76,18 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
             })}
           />
           {errors.title?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="shortDescription">
+          <label className={classes.form__label} htmlFor="shortDescription">
             Short description
           </label>
           <input
             className={
               errors.shortDescription?.type
-                ? 'form__input--error'
-                : 'form__input'
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Title"
@@ -94,14 +98,18 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
             })}
           />
           {errors.shortDescription?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="text">
+          <label className={classes.form__label} htmlFor="text">
             Text
           </label>
           <textarea
-            className={`form__textarea ${
-              errors.text?.type ? 'form__input--error' : 'form__input'
+            className={`${classes.form__textarea} ${
+              errors.text?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }`}
             type="text"
             placeholder="Text"
@@ -112,16 +120,18 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
             })}
           />
           {errors.text?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <div className="formTags">
-            <label className="formTags__label" htmlFor="tags">
+          <div className={classes.formTags}>
+            <label className={classes.formTags__label} htmlFor="tags">
               Tags
             </label>
-            <div className="formTags__blockTags">
-              <div className="formTags__tagsWrapper"> {tagsList} </div>
+            <div className={classes.formTags__blockTags}>
+              <div className={classes.formTags__tagsWrapper}> {tagsList} </div>
               <button
-                className="formTags__submitTags"
+                className={classes.formTags__submitTags}
                 type="button"
                 onClick={onAddTag}
               >
@@ -129,7 +139,7 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
               </button>
             </div>
           </div>
-          <button className="form__submit" type="submit">
+          <button className={classes.form__submit} type="submit">
             Send
           </button>
         </form>

@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import { v4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import Like from '../Like';
-import './Article.scss';
+import classes from './Article.module.scss';
 
 const Article = ({
   title,
@@ -19,17 +19,17 @@ const Article = ({
 }) => {
   const dateArticle = format(new Date(updatedAt), 'MMMM dd, yyyy');
   const tag = tagList.map((item) => (
-    <span className="article__tag" key={v4()}>
+    <span className={classes.article__tag} key={v4()}>
       {item}
     </span>
   ));
 
   return (
-    <li className="article">
-      <div className="article__header">
+    <li className={classes.article}>
+      <div className={classes.article__header}>
         <div>
-          <div className="article__data">
-            <Link to={`/articles/${slug}`} className="article__title">
+          <div className={classes.article__data}>
+            <Link to={`/articles/${slug}`} className={classes.article__title}>
               {title}
             </Link>
             <Like
@@ -40,15 +40,15 @@ const Article = ({
           </div>
           {tag}
         </div>
-        <div className="profile">
-          <div className="profile__data">
-            <span className="profile__name">{username}</span>
-            <span className="profile__date">{dateArticle}</span>
+        <div className={classes.profile}>
+          <div className={classes.profile__data}>
+            <span className={classes.profile__name}>{username}</span>
+            <span className={classes.profile__date}>{dateArticle}</span>
           </div>
-          <img className="profile__foto" src={image} alt="foto" />
+          <img className={classes.profile__foto} src={image} alt="foto" />
         </div>
       </div>
-      <p className="article__text">{description}</p>
+      <p className={classes.article__description}>{description}</p>
     </li>
   );
 };

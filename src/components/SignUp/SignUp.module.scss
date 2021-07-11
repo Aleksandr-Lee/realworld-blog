@@ -1,16 +1,18 @@
+@import '../../styles/variables.scss';
+
 .createError {
   text-align: center;
-  font-family: Roboto;
+  font-family: $fontFamilyRoboto;
   font-size: 16px;
-  color: red;
+  color: $colorRed;
   padding: 10px 0 0 0;
 }
 
 .createSuccess {
   text-align: center;
-  font-family: Roboto;
+  font-family: $fontFamilyRoboto;
   font-size: 16px;
-  color: green;
+  color: $colorGreen;
   padding: 10px 0 0 0;
 }
 
@@ -18,7 +20,7 @@
   margin: 0 auto;
   width: 374px;
   height: 100%;
-  background: #ffffff;
+  background: $colorWhite;
   border: 1px solid #d9d9d9;
   box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07),
     0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
@@ -34,11 +36,9 @@
   }
 
   &__title {
-    font-family: Roboto;
-    font-style: normal;
+    font-family: $fontFamilyRoboto;
     font-weight: 500;
     font-size: 20px;
-    line-height: 28px;
     text-align: center;
     color: #262626;
     margin: 21px 0px;
@@ -48,29 +48,23 @@
   display: flex;
   flex-direction: column;
   &__label {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     color: #262626;
     margin: 2px 0px;
   }
   &__input {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 16px;
     padding: 8px 12px;
     margin-bottom: 12px;
     outline: none;
     &:focus {
-      border-color: green;
+      border-color: $colorGreen;
     }
-    &--error {
-      outline: none;
-      border-radius: 4px;
-      font-family: Roboto;
-      font-size: 16px;
-      padding: 8px 12px;
-      margin-bottom: 13px;
-      border-color: red !important;
+    &::placeholder {
+      color: #d9d9d9;
     }
   }
   &__line {
@@ -83,31 +77,41 @@
   }
 
   &__submit {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 16px;
     line-height: 24px;
-    color: #ffffff;
-    background: #1890ff;
-    border: 1px solid #1890ff;
+    color: $colorWhite;
+    background: $colorBlue;
+    border: 1px solid $colorBlue;
     border-radius: 4px;
     margin: 10px 0px;
     padding: 8px 16px;
     cursor: pointer;
   }
   &__errorMessage {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 14px;
     line-height: 22px;
-    color: #f5222d;
+    color: $colorRed;
     margin-top: -13px;
     margin-bottom: 10px;
   }
+}
+
+.error {
+  outline: none;
+  border-radius: 4px;
+  font-family: $fontFamilyRoboto;
+  font-size: 16px;
+  padding: 8px 12px;
+  margin-bottom: 13px;
+  border-color: $colorRed !important;
 }
 .footer {
   display: flex;
   justify-content: center;
   &__text {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 12px;
     line-height: 20px;
     text-align: center;
@@ -115,9 +119,10 @@
     margin: 8px 2px 48px 0;
   }
   &__link {
-    color: #1890ff;
+    color: $colorBlue;
   }
 }
+
 .checkbox {
   &__input {
     margin-top: 14px;
@@ -125,17 +130,15 @@
     cursor: pointer;
   }
   &__label {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 14px;
-    line-height: 22px;
     color: #595959;
     margin-top: 12px;
-    &--error {
-      font-family: Roboto;
-      font-size: 14px;
-      line-height: 22px;
-      margin-top: 12px;
-      color: red !important;
-    }
   }
+}
+.errorCheckbox {
+  font-family: $fontFamilyRoboto;
+  font-size: 14px;
+  margin-top: 12px;
+  color: $colorRed !important;
 }

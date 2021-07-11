@@ -8,7 +8,7 @@ import {
   actionModalConfirmationWindow,
 } from '../../redux/actions/listArticles';
 import exclamation from '../../Assets/Images/exclamation-circle.svg';
-import './ModalConfirmationWindow.scss';
+import classes from './ModalConfirmationWindow.module.scss';
 
 const ModalConfirmationWindow = ({ slug }) => {
   const dispatch = useDispatch();
@@ -30,28 +30,28 @@ const ModalConfirmationWindow = ({ slug }) => {
     return <Redirect to="/articles" />;
   }
   return (
-    <div className="modalWindow">
-      <div className="modalWindow__container">
-        <div className="modalWindow__header">
+    <div className={classes.modalWindow}>
+      <div className={classes.modalWindow__container}>
+        <div className={classes.modalWindow__header}>
           <img
-            className="modalWindow__img"
+            className={classes.modalWindow__img}
             src={exclamation}
             alt="exclamation"
           />
-          <span className="modalWindow__title">
+          <span className={classes.modalWindow__title}>
             Are you sure to delete this article?
           </span>
         </div>
-        <div className="modalWindow__buttons">
+        <div className={classes.modalWindow__buttons}>
           <button
-            className="buttonModal buttonModal__no"
+            className={`${classes.buttonModal} ${classes.buttonModal__no}`}
             type="button"
             onClick={() => dispatch(actionModalConfirmationWindow(false))}
           >
             NO
           </button>
           <button
-            className="buttonModal buttonModal__yes"
+            className={`${classes.buttonModal} ${classes.buttonModal__yes}`}
             type="button"
             onClick={onDeleteArticle}
           >

@@ -10,7 +10,7 @@ import {
 } from '../../redux/actions/users';
 import { actionErrorDownload } from '../../redux/actions/listArticles';
 
-import './Profile.scss';
+import classes from './Profile.module.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -46,12 +46,14 @@ const Profile = () => {
 
   const editUser =
     successEditProfile === constants.SUCCESSFUL_REQUEST ? (
-      <p className="successProfile">Profile data changed</p>
+      <p className={classes.successProfile}>Profile data changed</p>
     ) : null;
 
   const editProfileError =
     typeof successEditProfile === 'object' ? (
-      <p className="editProfileError">A user with such data already exists</p>
+      <p className={classes.editProfileError}>
+        A user with such data already exists
+      </p>
     ) : null;
 
   if (
@@ -68,19 +70,21 @@ const Profile = () => {
   }
 
   return (
-    <div className="editProfile">
+    <div className={classes.editProfile}>
       {editUser}
       {editProfileError}
-      <div className="editProfile__container">
-        <h1 className="editProfile__title">Edit Profile</h1>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="form__label" htmlFor="userName">
+      <div className={classes.editProfile__container}>
+        <h1 className={classes.editProfile__title}>Edit Profile</h1>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <label className={classes.form__label} htmlFor="userName">
             Username
           </label>
           <input
             defaultValue={users.user.username}
             className={
-              errors.userName?.type ? 'form__input--error' : 'form__input'
+              errors.userName?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Username"
@@ -93,20 +97,24 @@ const Profile = () => {
           />
           {(errors.userName?.type === 'minLength' ||
             errors.userName?.type === 'maxLength') && (
-            <span className="form__errorMessage">
+            <span className={classes.form__errorMessage}>
               Username must be between 3 and 20 characters
             </span>
           )}
           {errors.userName?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="emailAddress">
+          <label className={classes.form__label} htmlFor="emailAddress">
             Email address
           </label>
           <input
             defaultValue={users.user.email}
             className={
-              errors.emailAddress?.type ? 'form__input--error' : 'form__input'
+              errors.emailAddress?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Email address"
@@ -117,17 +125,23 @@ const Profile = () => {
             })}
           />
           {errors.emailAddress?.type === 'pattern' && (
-            <span className="form__errorMessage">Invalid email address</span>
+            <span className={classes.form__errorMessage}>
+              Invalid email address
+            </span>
           )}
           {errors.emailAddress?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="password">
+          <label className={classes.form__label} htmlFor="password">
             New password
           </label>
           <input
             className={
-              errors.password?.type ? 'form__input--error' : 'form__input'
+              errors.password?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="password"
             placeholder="Password"
@@ -140,19 +154,21 @@ const Profile = () => {
           />
           {(errors.password?.type === 'minLength' ||
             errors.password?.type === 'maxLength') && (
-            <span className="form__errorMessage">
+            <span className={classes.form__errorMessage}>
               Your password needs to be at least 6 characters.
             </span>
           )}
           {errors.password?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="avatarImage">
+          <label className={classes.form__label} htmlFor="avatarImage">
             Avatar image (url)
           </label>
           <input
             defaultValue={users.user.image}
-            className="form__input"
+            className={classes.form__input}
             type="text"
             placeholder="Avatar image"
             id="avatarImage"
@@ -163,9 +179,11 @@ const Profile = () => {
             })}
           />
           {errors.avatarImage?.type === 'pattern' && (
-            <span className="form__errorMessage">Invalid url address</span>
+            <span className={classes.form__errorMessage}>
+              Invalid url address
+            </span>
           )}
-          <button className="form__submit" type="submit">
+          <button className={classes.form__submit} type="submit">
             Save
           </button>
         </form>

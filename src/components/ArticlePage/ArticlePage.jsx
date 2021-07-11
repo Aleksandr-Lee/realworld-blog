@@ -16,7 +16,7 @@ import ModalConfirmationWindow from '../ModalConfirmationWindow';
 import BlogService from '../../services/BlogService';
 import ErrorIndicator from '../ErrorIndicator';
 import Like from '../Like';
-import './ArticlePage.scss';
+import classes from './ArticlePage.module.scss';
 
 const ArticlePage = ({ slug }) => {
   const dispatch = useDispatch();
@@ -62,17 +62,19 @@ const ArticlePage = ({ slug }) => {
     const dateArticle = format(new Date(articles.updatedAt), 'MMMM dd, yyyy');
 
     const tag = articles.tagList.map((item) => (
-      <span className="articlePage__tag" key={v4()}>
+      <span className={classes.articlePage__tag} key={v4()}>
         {item}
       </span>
     ));
 
     return (
-      <li className="articlePage">
-        <div className="articlePage__header">
+      <li className={classes.articlePage}>
+        <div className={classes.articlePage__header}>
           <div>
-            <div className="articlePage__data">
-              <span className="articlePage__title">{articles.title}</span>
+            <div className={classes.articlePage__data}>
+              <span className={classes.articlePage__title}>
+                {articles.title}
+              </span>
               <Like
                 favorited={articles.favorited}
                 favoritesCount={articles.favoritesCount}
@@ -81,24 +83,28 @@ const ArticlePage = ({ slug }) => {
             </div>
             {tag}
           </div>
-          <div className="profile">
-            <div className="profile__data">
-              <span className="profile__name">{articles.author.username}</span>
-              <span className="profile__date">{dateArticle}</span>
+          <div className={classes.profile}>
+            <div className={classes.profile__data}>
+              <span className={classes.profile__name}>
+                {articles.author.username}
+              </span>
+              <span className={classes.profile_date}>{dateArticle}</span>
             </div>
             <img
-              className="profile__foto"
+              className={classes.profile__foto}
               src={articles.author.image}
               alt="foto"
             />
           </div>
         </div>
-        <div className="block__textButton">
-          <p className="articlePage__text">{articles.description}</p>
+        <div className={classes.block__textButton}>
+          <p className={classes.articlePage__description}>
+            {articles.description}
+          </p>
           {isAuth && users.user.username === articles.author.username ? (
             <div>
               <button
-                className="button button__delete"
+                className={`${classes.button} ${classes.button__delete}`}
                 type="button"
                 onClick={() => dispatch(actionModalConfirmationWindow(true))}
               >
@@ -106,7 +112,7 @@ const ArticlePage = ({ slug }) => {
               </button>
               <Link
                 to={`/articles/${slug.slug}/edit`}
-                className="button button__edit"
+                className={`${classes.button} ${classes.button__edit}`}
                 type="button"
               >
                 Edit
@@ -117,7 +123,7 @@ const ArticlePage = ({ slug }) => {
             <ModalConfirmationWindow slug={slug} />
           ) : null}
         </div>
-        <ReactMarkdown className="articlePage__text">
+        <ReactMarkdown className={classes.articlePage__body}>
           {articles.body}
         </ReactMarkdown>
       </li>

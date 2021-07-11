@@ -1,6 +1,8 @@
+@import '../../styles/variables.scss';
+
 .modalWindow {
   position: absolute;
-  top: 89px;
+  top: 80px;
   right: -164px;
   width: 240px;
   height: 104px;
@@ -26,7 +28,7 @@
     margin: 3px 9px 0 0;
   }
   &__title {
-    font-family: Roboto;
+    font-family: $fontFamilyRoboto;
     font-size: 14px;
     color: #595959;
   }
@@ -36,20 +38,20 @@
   }
 }
 .buttonModal {
-  font-family: Roboto;
+  font-family: $fontFamilyRoboto;
   font-size: 14px;
   border-radius: 4px;
   padding: 1px 8px;
   cursor: pointer;
   &__no {
     color: #595959;
-    background: #ffffff;
+    background: $colorWhite;
     border: 1px solid #d9d9d9;
     margin-right: 8px;
   }
   &__yes {
-    border: 1px solid #1890ff;
-    background: #1890ff;
-    color: #ffffff;
+    border: 1px solid $colorBlue;
+    background: $colorBlue;
+    color: $colorWhite;
   }
 }

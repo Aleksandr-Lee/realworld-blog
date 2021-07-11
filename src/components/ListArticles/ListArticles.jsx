@@ -13,7 +13,7 @@ import {
   actionArticlesCount,
   actionPage,
 } from '../../redux/actions/listArticles';
-import './ListArticles.scss';
+import classes from './ListArticles.module.scss';
 
 const ListArticles = () => {
   const dispatch = useDispatch();
@@ -89,7 +89,7 @@ const ListArticles = () => {
 
   return (
     <>
-      <ul className="container">
+      <ul className={classes.container}>
         {loadingIndicator}
         {articleList}
       </ul>

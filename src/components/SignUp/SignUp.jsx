@@ -7,7 +7,7 @@ import ErrorIndicator from '../ErrorIndicator';
 import constants from '../../constants';
 import { actionSuccessfulCreate } from '../../redux/actions/users';
 import { actionErrorDownload } from '../../redux/actions/listArticles';
-import './SignUp.scss';
+import classes from './SignUp.module.scss';
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -42,12 +42,12 @@ const SignUp = () => {
 
   const createFailed =
     typeof successfulCreate === 'object' ? (
-      <p className="createError">Such a user exists</p>
+      <p className={classes.createError}>Such a user exists</p>
     ) : null;
 
   const createUser =
     successfulCreate === constants.SUCCESSFUL_REQUEST ? (
-      <p className="createSuccess">You have successfully registered</p>
+      <p className={classes.createSuccess}>You have successfully registered</p>
     ) : null;
 
   if (
@@ -64,18 +64,20 @@ const SignUp = () => {
   }
 
   return (
-    <div className="regForm">
+    <div className={classes.regForm}>
       {createFailed}
       {createUser}
-      <div className="regForm__container">
-        <h1 className="regForm__title">Create new account</h1>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="form__label" htmlFor="userName">
+      <div className={classes.regForm__container}>
+        <h1 className={classes.regForm__title}>Create new account</h1>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <label className={classes.form__label} htmlFor="userName">
             Username
           </label>
           <input
             className={
-              errors.userName?.type ? 'form__input--error' : 'form__input'
+              errors.userName?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Username"
@@ -88,19 +90,23 @@ const SignUp = () => {
           />
           {(errors.userName?.type === 'minLength' ||
             errors.userName?.type === 'maxLength') && (
-            <span className="form__errorMessage">
+            <span className={classes.form__errorMessage}>
               Username must be between 3 and 20 characters
             </span>
           )}
           {errors.userName?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="emailAddress">
+          <label className={classes.form__label} htmlFor="emailAddress">
             Email address
           </label>
           <input
             className={
-              errors.emailAddress?.type ? 'form__input--error' : 'form__input'
+              errors.emailAddress?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="text"
             placeholder="Email address"
@@ -111,17 +117,23 @@ const SignUp = () => {
             })}
           />
           {errors.emailAddress?.type === 'pattern' && (
-            <span className="form__errorMessage">Invalid email address</span>
+            <span className={classes.form__errorMessage}>
+              Invalid email address
+            </span>
           )}
           {errors.emailAddress?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="password">
+          <label className={classes.form__label} htmlFor="password">
             Password
           </label>
           <input
             className={
-              errors.password?.type ? 'form__input--error' : 'form__input'
+              errors.password?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="password"
             placeholder="Password"
@@ -134,19 +146,23 @@ const SignUp = () => {
           />
           {(errors.password?.type === 'minLength' ||
             errors.password?.type === 'maxLength') && (
-            <span className="form__errorMessage">
+            <span className={classes.form__errorMessage}>
               Your password needs to be at least 6 characters.
             </span>
           )}
           {errors.password?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <label className="form__label" htmlFor="repeatPassword">
+          <label className={classes.form__label} htmlFor="repeatPassword">
             Repeat Password
           </label>
           <input
             className={
-              errors.repeatPassword?.type ? 'form__input--error' : 'form__input'
+              errors.repeatPassword?.type
+                ? `${classes.form__input} ${classes.error}`
+                : `${classes.form__input}`
             }
             type="password"
             placeholder="Repeat Password"
@@ -154,35 +170,42 @@ const SignUp = () => {
             {...register('repeatPassword', { required: true })}
           />
           {watch('password') !== watch('repeatPassword') && (
-            <span className="form__errorMessage">Passwords must match</span>
+            <span className={classes.form__errorMessage}>
+              Passwords must match
+            </span>
           )}
           {errors.repeatPassword?.type === 'required' && (
-            <span className="form__errorMessage">This is a required field</span>
+            <span className={classes.form__errorMessage}>
+              This is a required field
+            </span>
           )}
-          <hr className="form__line" />
-          <div className="form__checkbox">
+          <hr className={classes.form__line} />
+          <div className={classes.form__checkbox}>
             <input
-              className="checkbox__input"
+              className={classes.checkbox__input}
               type="checkbox"
               id="checkbox"
               {...register('checkbox', { required: true })}
             />
             <label
-              className={`checkbox__label${
-                errors.checkbox?.type ? '--error' : ''
+              className={`${classes.checkbox__label} ${
+                errors.checkbox?.type ? `${classes.errorCheckbox}` : ''
               }`}
               htmlFor="checkbox"
             >
               I agree to the processing of my personal information
             </label>
           </div>
-          <button className="form__submit" type="submit">
+          <button className={classes.form__submit} type="submit">
             Create
           </button>
         </form>
-        <div className="footer">
-          <span className="footer__text">Already have an account?</span>
-          <Link to="/sign-in" className="footer__text footer__link">
+        <div className={classes.footer}>
+          <span className={classes.footer__text}>Already have an account?</span>
+          <Link
+            to="/sign-in"
+            className={`${classes.footer__text} ${classes.footer__link}`}
+          >
             Sign In
           </Link>
         </div>

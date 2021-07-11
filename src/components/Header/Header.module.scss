@@ -1,6 +1,8 @@
+@import '../../styles/variables.scss';
+
 .header {
   height: 80px;
-  background: #ffffff;
+  background: $colorWhite;
   padding: 14px 3px 0px 22px;
   margin-bottom: 26px;
   &__wrapper {
@@ -10,11 +12,8 @@
   }
   &__title {
     display: inline-block;
-    font-family: Inter;
-    font-weight: normal;
+    font-family: $fontFamilyInter;
     font-size: 18px;
-    line-height: 28px;
-    color: rgba(0, 0, 0, 0.85);
     color: #000 !important;
     text-decoration: none;
   }
@@ -25,38 +24,44 @@
     align-items: center;
   }
   &__btnArticle {
-    border: 1px solid #52c41a;
+    border: 1px solid $colorGreen;
     border-radius: 5px;
-    font-family: Inter;
+    font-family: $fontFamilyInter;
     font-size: 14px;
-    color: #52c41a;
-    background: #ffffff;
+    color: $colorGreen;
+    background: $colorWhite;
     padding: 5px 10px;
     margin-right: 26px;
     cursor: pointer;
     &:hover {
       color: #ffffff;
-      background: #52c41a;
+      background: $colorGreen;
     }
   }
   &__userName {
     margin-right: 13px;
+    font-family: $fontFamilyInter;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.85);
     &:hover {
       color: salmon;
     }
   }
   &__userFoto {
+    width: 46px;
+    height: 46px;
+    border-radius: 25px;
+    cursor: pointer;
     margin-right: 27px;
   }
   &__logOut {
     border: 1px solid rgba(0, 0, 0, 0.75);
     border-radius: 5px;
-    font-family: Inter;
+    font-family: $fontFamilyInter;
     font-size: 18px;
-    line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
     padding: 10px 18px;
-    background: #ffffff;
+    background: $colorWhite;
     margin-right: 22px;
     &:hover {
       color: rgb(78, 31, 31);
@@ -65,12 +70,11 @@
   }
   &__button {
     display: inline-block;
-    font-family: Inter;
-    font-weight: normal;
+    font-family: $fontFamilyInter;
     font-size: 18px;
     color: rgba(0, 0, 0, 0.85);
     border: 1px solid transparent;
-    background: #ffffff;
+    background: $colorWhite;
     margin-right: 30px;
     padding: 13px 18px;
   }
@@ -79,16 +83,16 @@
 .button {
   &__signin {
     &:hover {
-      color: #52c41a;
+      color: $colorGreen;
     }
   }
   &__signup {
-    border: 1px solid #52c41a;
+    border: 1px solid $colorGreen;
     border-radius: 5px;
-    color: #52c41a;
+    color: $colorGreen;
     &:hover {
-      color: #ffffff;
-      background: #88d462;
+      color: $colorWhite;
+      background: $colorGreen;
     }
   }
 }

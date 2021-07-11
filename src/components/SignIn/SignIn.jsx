@@ -8,7 +8,7 @@ import {
   actionGetUser,
   actionSuccessfulLogin,
 } from '../../redux/actions/users';
-import './SignIn.scss';
+import classes from './SignIn.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,9 @@ const SignIn = () => {
 
   const loginFailed =
     typeof successfulLogin === 'object' ? (
-      <p className="loginFailed">User with such data is not registered</p>
+      <p className={classes.loginFailed}>
+        User with such data is not registered
+      </p>
     ) : null;
 
   if (successfulLogin) {
@@ -54,17 +56,19 @@ const SignIn = () => {
 
   if (!successfulLogin || typeof successfulLogin === 'object') {
     return (
-      <div className="loginForm">
+      <div className={classes.loginForm}>
         {loginFailed}
-        <div className="loginForm__container">
-          <h1 className="loginForm__title">Sign In</h1>
-          <form className="form" onSubmit={handleSubmit(onSubmit)}>
-            <label className="form__label" htmlFor="emailAddress">
+        <div className={classes.loginForm__container}>
+          <h1 className={classes.loginForm__title}>Sign In</h1>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <label className={classes.form__label} htmlFor="emailAddress">
               Email address
             </label>
             <input
               className={
-                errors.emailAddress?.type ? 'form__input--error' : 'form__input'
+                errors.emailAddress?.type
+                  ? `${classes.form__input} ${classes.error}`
+                  : `${classes.form__input}`
               }
               type="text"
               placeholder="Email address"
@@ -75,19 +79,23 @@ const SignIn = () => {
               })}
             />
             {errors.emailAddress?.type === 'pattern' && (
-              <span className="form__errorMessage">Invalid email address</span>
+              <span className={classes.form__errorMessage}>
+                Invalid email address
+              </span>
             )}
             {errors.emailAddress?.type === 'required' && (
-              <span className="form__errorMessage">
+              <span className={classes.form__errorMessage}>
                 This is a required field
               </span>
             )}
-            <label className="form__label" htmlFor="password">
+            <label className={classes.form__label} htmlFor="password">
               Password
             </label>
             <input
               className={
-                errors.password?.type ? 'form__input--error' : 'form__input'
+                errors.password?.type
+                  ? `${classes.form__input} ${classes.error}`
+                  : `${classes.form__input}`
               }
               type="password"
               placeholder="Password"
@@ -100,22 +108,25 @@ const SignIn = () => {
             />
             {(errors.password?.type === 'minLength' ||
               errors.password?.type === 'maxLength') && (
-              <span className="form__errorMessage">
+              <span className={classes.form__errorMessage}>
                 Your password needs to be at least 6 characters.
               </span>
             )}
             {errors.password?.type === 'required' && (
-              <span className="form__errorMessage">
+              <span className={classes.form__errorMessage}>
                 This is a required field
               </span>
             )}
-            <button className="form__submit" type="submit">
+            <button className={classes.form__submit} type="submit">
               Login
             </button>
           </form>
-          <div className="footer">
-            <span className="footer__text">Don’t have an account?</span>
-            <Link to="/sign-up" className="footer__text footer__link">
+          <div className={classes.footer}>
+            <span className={classes.footer__text}>Don’t have an account?</span>
+            <Link
+              to="/sign-up"
+              className={`${classes.footer__text} ${classes.footer__link}`}
+            >
               Sign Up
             </Link>
           </div>
