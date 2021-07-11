@@ -14,3 +14,18 @@ export const actionUpdateUser = (users) => ({
   type: actionTypes.updateUser,
   users,
 });
+
+export const actionSuccessfulLogin = (successfulLogin) => ({
+  type: actionTypes.successfulLogin,
+  successfulLogin,
+});
+
+export const actionSuccessfulCreate = (successfulCreate) => ({
+  type: actionTypes.successfulCreate,
+  successfulCreate,
+});
+
+export const actionSuccessfulEditProfile = (successfulEditProfile) => ({
+  type: actionTypes.successfulEditProfile,
+  successfulEditProfile,
+});

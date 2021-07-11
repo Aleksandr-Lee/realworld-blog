@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import './ErrorIndicator.scss';
 
 const ErrorIndicator = () => (
-  <Alert message="Ошибка! Данные не получены." type="error" />
+  <Alert message="Error reload the page." type="error" />
 );
 
 export default ErrorIndicator;

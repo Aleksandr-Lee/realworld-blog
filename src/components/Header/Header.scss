@@ -4,8 +4,6 @@
   padding: 14px 3px 0px 22px;
   margin-bottom: 26px;
   &__wrapper {
-    width: 1000px;
-    // margin: -3px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,20 +22,28 @@
   }
   &__user {
     display: flex;
-    align-items:center
+    align-items: center;
   }
   &__btnArticle {
-    border: 1px solid #52C41A;
+    border: 1px solid #52c41a;
     border-radius: 5px;
     font-family: Inter;
     font-size: 14px;
-    color: #52C41A;
+    color: #52c41a;
     background: #ffffff;
-    padding: 0 10px;
+    padding: 5px 10px;
     margin-right: 26px;
+    cursor: pointer;
+    &:hover {
+      color: #ffffff;
+      background: #52c41a;
+    }
   }
   &__userName {
     margin-right: 13px;
+    &:hover {
+      color: salmon;
+    }
   }
   &__userFoto {
     margin-right: 27px;
@@ -52,6 +58,10 @@
     padding: 10px 18px;
     background: #ffffff;
     margin-right: 22px;
+    &:hover {
+      color: rgb(78, 31, 31);
+      background: rgba(175, 157, 157, 0.75);
+    }
   }
   &__button {
     display: inline-block;
@@ -61,12 +71,24 @@
     color: rgba(0, 0, 0, 0.85);
     border: 1px solid transparent;
     background: #ffffff;
-    margin-left: 30px;
+    margin-right: 30px;
     padding: 13px 18px;
-    &--active {
-      border: 1px solid #52c41a;
-      border-radius: 5px;
+  }
+}
+
+.button {
+  &__signin {
+    &:hover {
       color: #52c41a;
+    }
+  }
+  &__signup {
+    border: 1px solid #52c41a;
+    border-radius: 5px;
+    color: #52c41a;
+    &:hover {
+      color: #ffffff;
+      background: #88d462;
     }
   }
 }

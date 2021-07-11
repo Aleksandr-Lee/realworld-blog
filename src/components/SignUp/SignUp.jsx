@@ -1,49 +1,72 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable no-shadow */
-/* eslint-disable arrow-body-style */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
+import ErrorIndicator from '../ErrorIndicator';
+import constants from '../../constants';
+import { actionSuccessfulCreate } from '../../redux/actions/users';
+import { actionErrorDownload } from '../../redux/actions/listArticles';
 import './SignUp.scss';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const successfulCreate = useSelector(
+    (state) => state.usersReducer.successfulCreate
+  );
+  const errorDownload = useSelector(
+    (state) => state.articlesReducer.errorDownload
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({ mode: 'onSubmit' });
+  } = useForm();
 
-  const onSubmit = async ({ userName, emailAddress, password }) => {
+  const onSubmit = ({ userName, emailAddress, password }) => {
     new BlogService()
       .setUserRegistration(userName, emailAddress, password)
       .then((users) => {
-        console.log(users);
+        if (users.errors) {
+          dispatch(actionSuccessfulCreate(users));
+        } else {
+          dispatch(actionSuccessfulCreate(constants.SUCCESSFUL_REQUEST));
+        }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(actionSuccessfulCreate(error.message));
+        dispatch(actionErrorDownload());
       });
-    //  const res = await fetch('https://conduit.productionready.io/api/users', {
-    //    method: 'POST',
-    //    headers: {
-    //      'Content-Type': 'application/json;charset=utf-8',
-    //    },
-    //    body: JSON.stringify({
-    //      user: {
-    //        username: userName,
-    //        email: emailAddress,
-    //        password: password,
-    //      },
-    //    }),
-    //  });
-    //  const result = await res.json();
-    //  //  result.then((data) => console.log(data))
-    //  console.log(result);
   };
+
+  const createFailed =
+    typeof successfulCreate === 'object' ? (
+      <p className="createError">Such a user exists</p>
+    ) : null;
+
+  const createUser =
+    successfulCreate === constants.SUCCESSFUL_REQUEST ? (
+      <p className="createSuccess">You have successfully registered</p>
+    ) : null;
+
+  if (
+    successfulCreate === constants.SUCCESSFUL_REQUEST ||
+    typeof successfulCreate === 'object'
+  ) {
+    setTimeout(() => {
+      dispatch(actionSuccessfulCreate(false));
+    }, 5000);
+  }
+
+  if (errorDownload) {
+    return <ErrorIndicator />;
+  }
 
   return (
     <div className="regForm">
+      {createFailed}
+      {createUser}
       <div className="regForm__container">
         <h1 className="regForm__title">Create new account</h1>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +74,9 @@ const SignUp = () => {
             Username
           </label>
           <input
-            className="form__input"
+            className={
+              errors.userName?.type ? 'form__input--error' : 'form__input'
+            }
             type="text"
             placeholder="Username"
             id="userName"
@@ -74,13 +99,15 @@ const SignUp = () => {
             Email address
           </label>
           <input
-            className="form__input"
+            className={
+              errors.emailAddress?.type ? 'form__input--error' : 'form__input'
+            }
             type="text"
             placeholder="Email address"
             id="emailAddress"
             {...register('emailAddress', {
               required: true,
-              pattern: /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i,
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/,
             })}
           />
           {errors.emailAddress?.type === 'pattern' && (
@@ -93,7 +120,9 @@ const SignUp = () => {
             Password
           </label>
           <input
-            className="form__input"
+            className={
+              errors.password?.type ? 'form__input--error' : 'form__input'
+            }
             type="password"
             placeholder="Password"
             id="password"
@@ -116,7 +145,9 @@ const SignUp = () => {
             Repeat Password
           </label>
           <input
-            className="form__input"
+            className={
+              errors.repeatPassword?.type ? 'form__input--error' : 'form__input'
+            }
             type="password"
             placeholder="Repeat Password"
             id="repeatPassword"
@@ -131,17 +162,17 @@ const SignUp = () => {
           <hr className="form__line" />
           <div className="form__checkbox">
             <input
-              className="form__checkbox--input"
+              className="checkbox__input"
               type="checkbox"
               id="checkbox"
               {...register('checkbox', { required: true })}
             />
-            {/* {errors.checkbox?.type === 'required' && (
-              <span className="form__errorMessage">
-                This is a required field
-              </span>
-            )} */}
-            <label className="form__checkbox--label" htmlFor="checkbox">
+            <label
+              className={`checkbox__label${
+                errors.checkbox?.type ? '--error' : ''
+              }`}
+              htmlFor="checkbox"
+            >
               I agree to the processing of my personal information
             </label>
           </div>

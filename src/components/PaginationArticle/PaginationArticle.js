@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 import { useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
@@ -22,6 +22,14 @@ const PaginationArticle = ({ handlePageClick }) => {
       hideOnSinglePage
     />
   );
+};
+
+PaginationArticle.defaultProps = {
+  handlePageClick: () => {},
+};
+
+PaginationArticle.propTypes = {
+  handlePageClick: PropTypes.func,
 };
 
 export default PaginationArticle;

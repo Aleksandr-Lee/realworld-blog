@@ -9,5 +9,12 @@ const actionTypes = {
   getUser: 'GET_USER',
   logOut: 'LOG_OUT',
   updateUser: 'UPDATE_USER',
+  successfulLogin: 'SUCCESSFUL_LOGIN',
+  successfulCreate: 'SUCCESSFUL_CREATE',
+  successfulEditProfile: 'SUCCESSFUL_EDIT_PROFILE',
+  successfulDeleteArticle: 'SUCCESSFUL_DELETE_ARTICLE',
+  createArticle: 'CREATE_ARTICLE',
+  successfulCreateArticle: 'SUCCESSFUL_CREATE_ARTICLE',
+  modalConfirmationWindow: 'MODAL_CONFIRMATION_WINDOW',
 };
 export default actionTypes;

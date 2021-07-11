@@ -8,6 +8,10 @@ const initialState = {
   errorDownload: false,
   articlesCount: 1,
   page: 1,
+  successfulDeleteArticle: false,
+  createArticle: null,
+  successfulCreateArticle: false,
+  modalConfirmationWindow: false,
 };
 
 const articlesReducer = (state = initialState, action) => {
@@ -50,6 +54,26 @@ const articlesReducer = (state = initialState, action) => {
       return {
         ...state,
         page: action.page,
+      };
+    case actionTypes.successfulDeleteArticle:
+      return {
+        ...state,
+        successfulDeleteArticle: action.successfulDeleteArticle,
+      };
+    case actionTypes.createArticle:
+      return {
+        ...state,
+        createArticle: action.createArticle,
+      };
+    case actionTypes.successfulCreateArticle:
+      return {
+        ...state,
+        successfulCreateArticle: action.successfulCreateArticle,
+      };
+    case actionTypes.modalConfirmationWindow:
+      return {
+        ...state,
+        modalConfirmationWindow: action.modalConfirmationWindow,
       };
     default:
       return state;

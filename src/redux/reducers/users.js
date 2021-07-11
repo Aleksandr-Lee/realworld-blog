@@ -1,12 +1,14 @@
 import actionTypes from '../actionsTypes';
 
 const initialState = {
-  users: {},
+  users: false,
   isAuth: false,
+  successfulLogin: false,
+  successfulCreate: false,
+  successfulEditProfile: false,
 };
 
 const usersReducer = (state = initialState, action) => {
-  console.log(action.users);
   switch (action.type) {
     case actionTypes.getUser:
       return {
@@ -25,6 +27,21 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.users,
+      };
+    case actionTypes.successfulLogin:
+      return {
+        ...state,
+        successfulLogin: action.successfulLogin,
+      };
+    case actionTypes.successfulCreate:
+      return {
+        ...state,
+        successfulCreate: action.successfulCreate,
+      };
+    case actionTypes.successfulEditProfile:
+      return {
+        ...state,
+        successfulEditProfile: action.successfulEditProfile,
       };
     default:
       return state;

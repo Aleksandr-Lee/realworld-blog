@@ -1,5 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable arrow-body-style */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,15 +10,6 @@ const Header = () => {
   const isAuth = useSelector((state) => state.usersReducer.isAuth);
   const users = useSelector((state) => state.usersReducer.users);
 
-  if (users === undefined) {
-    return {};
-  }
-
-  const avatar =
-    users.image === null || users.image === undefined
-      ? noAvatar
-      : users.user.image;
-
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -29,13 +18,23 @@ const Header = () => {
         </Link>
         {isAuth ? (
           <div className="header__user">
-            <button className="header__btnArticle">Create article</button>
+            <Link to="/new-article" className="header__btnArticle">
+              Create article
+            </Link>
             <Link to="/profile" className="profile__name header__userName">
               {users.user.username}
             </Link>
-            <Link to="/profile" className="profile__foto header__userFoto">
+            <Link to="/profile">
               {' '}
-              <img src={avatar} alt="foto" />
+              <img
+                className="profile__foto header__userFoto"
+                src={
+                  users.user.image === null || users.user.image === ''
+                    ? noAvatar
+                    : users.user.image
+                }
+                alt="foto"
+              />
             </Link>
             <Link
               to="/"
@@ -47,13 +46,10 @@ const Header = () => {
           </div>
         ) : (
           <div className="header__authentication">
-            <Link to="/sign-in" className="header__button">
+            <Link to="/sign-in" className="header__button button__signin">
               Sign In
             </Link>
-            <Link
-              to="/sign-up"
-              className="header__button header__button--active "
-            >
+            <Link to="/sign-up" className="header__button button__signup">
               Sign Up
             </Link>
           </div>

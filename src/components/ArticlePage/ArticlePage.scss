@@ -18,6 +18,7 @@
     align-items: center;
   }
   &__title {
+    max-width: 650px;
     font-family: Inter;
     font-weight: normal;
     font-size: 20px;
@@ -25,19 +26,7 @@
     color: #1890ff;
     margin-right: 13px;
     margin-bottom: 1px;
-  }
-  &__like {
-    width: 16px;
-    height: 14px;
-    margin-right: 5px;
-    cursor: pointer;
-  }
-  &__likeCount {
-    font-family: Inter;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 22px;
-    color: rgba(0, 0, 0, 0.75);
+    overflow-wrap: anywhere;
   }
   &__tag {
     display: inline-block;
@@ -64,11 +53,13 @@
     font-size: 12px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
+    overflow-wrap: anywhere;
   }
 }
 .profile {
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
   &__data {
     margin-right: 12px;
   }
@@ -92,5 +83,38 @@
     height: 46px;
     border-radius: 25px;
     cursor: pointer;
+  }
+}
+.block__textButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.button {
+  background: #ffffff;
+  border-radius: 5px;
+  padding: 6px 17px;
+  cursor: pointer;
+  &__delete {
+    border: 1px solid #f5222d;
+    font-family: Inter;
+    font-size: 14px;
+    color: #f5222d;
+    margin-right: 12px;
+    &:hover {
+      color: #ffffff;
+      background: #f5222d;
+    }
+  }
+  &__edit {
+    border: 1px solid #52c41a;
+    font-family: Inter;
+    font-size: 14px;
+    color: #52c41a;
+    &:hover {
+      color: #ffffff;
+      background: #52c41a;
+    }
   }
 }

@@ -1,40 +1,76 @@
-/* eslint-disable no-shadow */
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionUpdateUser } from '../../redux/actions/users';
 import BlogService from '../../services/BlogService';
+import ErrorIndicator from '../ErrorIndicator';
+import constants from '../../constants';
+import {
+  actionUpdateUser,
+  actionSuccessfulEditProfile,
+} from '../../redux/actions/users';
+import { actionErrorDownload } from '../../redux/actions/listArticles';
+
 import './Profile.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.usersReducer.users);
+  const successEditProfile = useSelector(
+    (state) => state.usersReducer.successfulEditProfile
+  );
+  const errorDownload = useSelector(
+    (state) => state.articlesReducer.errorDownload
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
-    //  watch,
   } = useForm();
 
-  //   const onSubmit = (data) => {
-  //     console.log(data);
-  //   };
-  console.log(users.user.token);
-  const onSubmit = async ({ emailAddress, bio, avatarImage }) => {
-    console.log(avatarImage);
+  const onSubmit = ({ userName, emailAddress, password, avatarImage }) => {
     new BlogService()
-      .updateUser(emailAddress, bio, avatarImage, users.user.token)
-      .then((users) => {
-        dispatch(actionUpdateUser(users));
-        console.log(users);
+      .updateUser(userName, emailAddress, password, avatarImage)
+      .then((user) => {
+        if (user.errors) {
+          dispatch(actionSuccessfulEditProfile(user));
+        } else {
+          dispatch(actionUpdateUser(user));
+          dispatch(actionSuccessfulEditProfile(constants.SUCCESSFUL_REQUEST));
+        }
       })
       .catch((error) => {
-        console.log(error);
+        dispatch(actionSuccessfulEditProfile(error.message));
+        dispatch(actionErrorDownload());
       });
   };
 
+  const editUser =
+    successEditProfile === constants.SUCCESSFUL_REQUEST ? (
+      <p className="successProfile">Profile data changed</p>
+    ) : null;
+
+  const editProfileError =
+    typeof successEditProfile === 'object' ? (
+      <p className="editProfileError">A user with such data already exists</p>
+    ) : null;
+
+  if (
+    successEditProfile === constants.SUCCESSFUL_REQUEST ||
+    typeof successEditProfile === 'object'
+  ) {
+    setTimeout(() => {
+      dispatch(actionSuccessfulEditProfile(false));
+    }, 5000);
+  }
+
+  if (errorDownload) {
+    return <ErrorIndicator />;
+  }
+
   return (
     <div className="editProfile">
+      {editUser}
+      {editProfileError}
       <div className="editProfile__container">
         <h1 className="editProfile__title">Edit Profile</h1>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +79,9 @@ const Profile = () => {
           </label>
           <input
             defaultValue={users.user.username}
-            className="form__input"
+            className={
+              errors.userName?.type ? 'form__input--error' : 'form__input'
+            }
             type="text"
             placeholder="Username"
             id="userName"
@@ -67,14 +105,15 @@ const Profile = () => {
           </label>
           <input
             defaultValue={users.user.email}
-            className="form__input"
+            className={
+              errors.emailAddress?.type ? 'form__input--error' : 'form__input'
+            }
             type="text"
             placeholder="Email address"
             id="emailAddress"
             {...register('emailAddress', {
               required: true,
-              pattern:
-                /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i,
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/,
             })}
           />
           {errors.emailAddress?.type === 'pattern' && (
@@ -87,7 +126,9 @@ const Profile = () => {
             New password
           </label>
           <input
-            className="form__input"
+            className={
+              errors.password?.type ? 'form__input--error' : 'form__input'
+            }
             type="password"
             placeholder="Password"
             id="password"
@@ -110,6 +151,7 @@ const Profile = () => {
             Avatar image (url)
           </label>
           <input
+            defaultValue={users.user.image}
             className="form__input"
             type="text"
             placeholder="Avatar image"
