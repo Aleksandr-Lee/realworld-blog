@@ -24,24 +24,34 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
+  // eslint-disable-next-line no-undef
+  console.log(isSubmitting);
+
   const onSubmit = ({ userName, emailAddress, password, avatarImage }) => {
-    new BlogService()
-      .updateUser(userName, emailAddress, password, avatarImage)
-      .then((user) => {
-        if (user.errors) {
-          dispatch(actionSuccessfulEditProfile(user));
-        } else {
-          dispatch(actionUpdateUser(user));
-          dispatch(actionSuccessfulEditProfile(constants.SUCCESSFUL_REQUEST));
-        }
-      })
-      .catch((error) => {
-        dispatch(actionSuccessfulEditProfile(error.message));
-        dispatch(actionErrorDownload());
-      });
+    console.log(userName);
+    if (isSubmitting) {
+      setTimeout(() => {
+        new BlogService()
+          .updateUser(userName, emailAddress, password, avatarImage)
+          .then((user) => {
+            if (user.errors) {
+              dispatch(actionSuccessfulEditProfile(user));
+            } else {
+              dispatch(actionUpdateUser(user));
+              dispatch(
+                actionSuccessfulEditProfile(constants.SUCCESSFUL_REQUEST)
+              );
+            }
+          })
+          .catch((error) => {
+            dispatch(actionSuccessfulEditProfile(error.message));
+            dispatch(actionErrorDownload());
+          });
+      }, 10000);
+    }
   };
 
   const editUser =
@@ -183,7 +193,11 @@ const Profile = () => {
               Invalid url address
             </span>
           )}
-          <button className={classes.form__submit} type="submit">
+          <button
+            className={classes.form__submit}
+            type="submit"
+            disabled={isSubmitting}
+          >
             Save
           </button>
         </form>

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { v4 } from 'uuid';
 import Article from '../Article';
 import LoadingIndicator from '../LoadingIndicator';
 import PaginationArticle from '../PaginationArticle';
@@ -36,20 +35,18 @@ const ListArticles = () => {
   const articlesDisplay = useCallback(
     (offset) => {
       dispatch(actionCompleteDownload());
-      setTimeout(() => {
-        new BlogService()
-          .getListArticles(offset)
-          .then((articles) => {
-            dispatch(actionListArticles(articles.articles));
-            if (articlesCount === 1) {
-              dispatch(actionArticlesCount(articles.articlesCount));
-            }
-          })
-          .catch(() => {
-            dispatch(actionCompleteDownload());
-            dispatch(actionErrorDownload());
-          });
-      }, 500);
+      new BlogService()
+        .getListArticles(offset)
+        .then((articles) => {
+          dispatch(actionListArticles(articles.articles));
+          if (articlesCount === 1) {
+            dispatch(actionArticlesCount(articles.articlesCount));
+          }
+        })
+        .catch(() => {
+          dispatch(actionCompleteDownload());
+          dispatch(actionErrorDownload());
+        });
     },
     [dispatch, articlesCount]
   );
@@ -73,7 +70,7 @@ const ListArticles = () => {
 
   const articleList = articlesList.map((item) => (
     <Article
-      key={item.title + item.body + v4()}
+      key={item.slug}
       title={item.title}
       description={item.description}
       slug={item.slug}

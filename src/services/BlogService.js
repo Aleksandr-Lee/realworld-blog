@@ -1,6 +1,20 @@
+import LocalStorageService from './LocalStorageService';
+
 const LIMIT_ARTICLES = 5;
+
 export default class BlogService {
   apiBase = 'https://conduit.productionready.io/api/';
+
+  postRequest() {
+    const token = LocalStorageService.getToken();
+    const headers = {
+      'Content-Type': 'application/json;charset=utf-8',
+    };
+    if (token) {
+      headers.Authorization = `Token ${token}`;
+    }
+    return headers;
+  }
 
   async getResource(url, postRequest = null) {
     const res = await fetch(url, postRequest);
@@ -8,43 +22,31 @@ export default class BlogService {
   }
 
   async getListArticles(changeOffset = 1) {
-    const token = localStorage.getItem('token');
     const offset = (changeOffset - 1) * LIMIT_ARTICLES;
     const url = `${this.apiBase}articles?limit=${LIMIT_ARTICLES}&offset=${offset}`;
-    const postRequest = {
+    const request = {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const request = token ? postRequest : null;
     const res = await this.getResource(url, request);
     return res;
   }
 
   async getArticle(slug) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}articles/${slug}`;
-    const postRequest = {
+    const request = {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const request = token ? postRequest : null;
     const res = await this.getResource(url, request);
     return res;
   }
 
   async setUserRegistration(username, email, password) {
     const url = `${this.apiBase}users`;
-    const postRequest = {
+    const request = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
+      headers: this.postRequest(),
       body: JSON.stringify({
         user: {
           username,
@@ -53,17 +55,15 @@ export default class BlogService {
         },
       }),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async getUsers(email, password) {
     const url = `${this.apiBase}users/login`;
-    const postRequest = {
+    const request = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
+      headers: this.postRequest(),
       body: JSON.stringify({
         user: {
           email,
@@ -71,20 +71,15 @@ export default class BlogService {
         },
       }),
     };
-
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async updateUser(username, email, password, image = null) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}user`;
-    const postRequest = {
+    const request = {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
       body: JSON.stringify({
         user: {
           username,
@@ -94,32 +89,25 @@ export default class BlogService {
         },
       }),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
-  async getCurrentUsers(token) {
+  async getCurrentUsers() {
     const url = `${this.apiBase}user`;
-    const postRequest = {
+    const request = {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async createArticle({ title, shortDescription, text, tagList }) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}articles`;
-    const postRequest = {
+    const request = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
       body: JSON.stringify({
         article: {
           title,
@@ -129,19 +117,15 @@ export default class BlogService {
         },
       }),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async editArticle(title, description, body, tagList, slug) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}articles/${slug}`;
-    const postRequest = {
+    const request = {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
       body: JSON.stringify({
         article: {
           title,
@@ -151,49 +135,37 @@ export default class BlogService {
         },
       }),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async deleteArticle(slug) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}/articles/${slug}`;
-    const postRequest = {
+    const request = {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async likeArticle(slug) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}/articles/${slug}/favorite`;
-    const postRequest = {
+    const request = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 
   async dislikeArticle(slug) {
-    const token = localStorage.getItem('token');
     const url = `${this.apiBase}/articles/${slug}/favorite`;
-    const postRequest = {
+    const request = {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
+      headers: this.postRequest(),
     };
-    const res = await this.getResource(url, postRequest);
+    const res = await this.getResource(url, request);
     return res;
   }
 }

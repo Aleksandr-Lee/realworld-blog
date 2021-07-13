@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
 import ErrorIndicator from '../ErrorIndicator';
 import constants from '../../constants';
+import route from '../../route';
 import { actionSuccessfulCreate } from '../../redux/actions/users';
 import { actionErrorDownload } from '../../redux/actions/listArticles';
 import classes from './SignUp.module.scss';
@@ -203,7 +204,7 @@ const SignUp = () => {
         <div className={classes.footer}>
           <span className={classes.footer__text}>Already have an account?</span>
           <Link
-            to="/sign-in"
+            to={route.signIn}
             className={`${classes.footer__text} ${classes.footer__link}`}
           >
             Sign In

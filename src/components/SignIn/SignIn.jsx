@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
+import route from '../../route';
 import ErrorIndicator from '../ErrorIndicator';
 import {
   actionGetUser,
@@ -124,7 +125,7 @@ const SignIn = () => {
           <div className={classes.footer}>
             <span className={classes.footer__text}>Don’t have an account?</span>
             <Link
-              to="/sign-up"
+              to={route.signUp}
               className={`${classes.footer__text} ${classes.footer__link}`}
             >
               Sign Up
@@ -134,7 +135,7 @@ const SignIn = () => {
       </div>
     );
   }
-  return <Redirect to="/" />;
+  return <Redirect to={route.home} />;
 };
 
 export default SignIn;

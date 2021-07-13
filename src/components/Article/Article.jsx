@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import format from 'date-fns/format';
-import { v4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import Like from '../Like';
+import route from '../../route';
 import classes from './Article.module.scss';
 
 const Article = ({
@@ -19,7 +19,7 @@ const Article = ({
 }) => {
   const dateArticle = format(new Date(updatedAt), 'MMMM dd, yyyy');
   const tag = tagList.map((item) => (
-    <span className={classes.article__tag} key={v4()}>
+    <span className={classes.article__tag} key={item}>
       {item}
     </span>
   ));
@@ -29,7 +29,10 @@ const Article = ({
       <div className={classes.article__header}>
         <div>
           <div className={classes.article__data}>
-            <Link to={`/articles/${slug}`} className={classes.article__title}>
+            <Link
+              to={`${route.articles}${slug}`}
+              className={classes.article__title}
+            >
               {title}
             </Link>
             <Like

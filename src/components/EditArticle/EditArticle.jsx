@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import CreateEditForm from '../CreateEditForm';
 import LoadingIndicator from '../LoadingIndicator';
 import BlogService from '../../services/BlogService';
+import route from '../../route';
 import ErrorIndicator from '../ErrorIndicator';
 import {
   actionArticles,
@@ -54,7 +55,7 @@ const EditArticle = ({ slug }) => {
     setTimeout(() => {
       dispatch(actionSuccessfulCreateArticle(false));
     }, 500);
-    return <Redirect to="/articles" />;
+    return <Redirect to={route.listArticles} />;
   }
 
   const editArticle = ({ title, shortDescription, text, tagList }) => {

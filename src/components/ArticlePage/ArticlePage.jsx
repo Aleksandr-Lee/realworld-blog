@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import format from 'date-fns/format';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
-import { v4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   actionArticles,
@@ -16,6 +15,7 @@ import ModalConfirmationWindow from '../ModalConfirmationWindow';
 import BlogService from '../../services/BlogService';
 import ErrorIndicator from '../ErrorIndicator';
 import Like from '../Like';
+import route from '../../route';
 import classes from './ArticlePage.module.scss';
 
 const ArticlePage = ({ slug }) => {
@@ -62,7 +62,7 @@ const ArticlePage = ({ slug }) => {
     const dateArticle = format(new Date(articles.updatedAt), 'MMMM dd, yyyy');
 
     const tag = articles.tagList.map((item) => (
-      <span className={classes.articlePage__tag} key={v4()}>
+      <span className={classes.articlePage__tag} key={item}>
         {item}
       </span>
     ));
@@ -111,7 +111,7 @@ const ArticlePage = ({ slug }) => {
                 Delete
               </button>
               <Link
-                to={`/articles/${slug.slug}/edit`}
+                to={`${route.articles}${slug.slug}${route.edit}`}
                 className={`${classes.button} ${classes.button__edit}`}
                 type="button"
               >

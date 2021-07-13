@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import BlogService from '../../services/BlogService';
 import CreateEditForm from '../CreateEditForm';
 import ErrorIndicator from '../ErrorIndicator';
+import route from '../../route';
 import {
   actionCreateArticle,
   actionSuccessfulCreateArticle,
@@ -30,7 +31,7 @@ const CreateArticle = () => {
     setTimeout(() => {
       dispatch(actionSuccessfulCreateArticle(false));
     }, 500);
-    return <Redirect to="/articles" />;
+    return <Redirect to={route.listArticles} />;
   }
 
   const createArticle = (data) => {

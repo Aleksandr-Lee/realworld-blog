@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import BlogService from '../../services/BlogService';
+import route from '../../route';
 import {
   actionSuccessfulDeleteArticle,
   actionModalConfirmationWindow,
@@ -27,7 +28,7 @@ const ModalConfirmationWindow = ({ slug }) => {
       dispatch(actionSuccessfulDeleteArticle(false));
       dispatch(actionModalConfirmationWindow(false));
     }, 500);
-    return <Redirect to="/articles" />;
+    return <Redirect to={route.listArticles} />;
   }
   return (
     <div className={classes.modalWindow}>

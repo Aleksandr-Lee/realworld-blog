@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import noAvatar from '../../Assets/Images/noAvatar.svg';
+import route from '../../route';
 import { actionLogOut } from '../../redux/actions/users';
 import classes from './Header.module.scss';
 
@@ -13,19 +14,19 @@ const Header = () => {
   return (
     <header className={classes.header}>
       <div className={classes.header__wrapper}>
-        <Link to="/articles" className={classes.header__title}>
+        <Link to={route.listArticles} className={classes.header__title}>
           Realdworld Blog
         </Link>
         {isAuth ? (
           <div className={classes.header__user}>
-            <Link to="/new-article" className={classes.header__btnArticle}>
+            <Link to={route.newArticle} className={classes.header__btnArticle}>
               Create article
             </Link>
 
-            <Link to="/profile" className={classes.header__userName}>
+            <Link to={route.profile} className={classes.header__userName}>
               {users.user.username}
             </Link>
-            <Link to="/profile">
+            <Link to={route.profile}>
               {' '}
               <img
                 className={classes.header__userFoto}
@@ -38,7 +39,7 @@ const Header = () => {
               />
             </Link>
             <Link
-              to="/"
+              to={route.home}
               className={classes.header__logOut}
               onClick={() => dispatch(actionLogOut())}
             >
@@ -48,13 +49,13 @@ const Header = () => {
         ) : (
           <div className={classes.header__authentication}>
             <Link
-              to="/sign-in"
+              to={route.signIn}
               className={`${classes.header__button} ${classes.button__signin}`}
             >
               Sign In
             </Link>
             <Link
-              to="/sign-up"
+              to={route.signUp}
               className={`${classes.header__button} ${classes.button__signup}`}
             >
               Sign Up
