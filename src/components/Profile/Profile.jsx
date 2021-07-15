@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
 import ErrorIndicator from '../ErrorIndicator';
+import Inputs from '../Inputs';
 import constants from '../../constants';
 import {
   actionUpdateUser,
@@ -24,34 +25,24 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
-  // eslint-disable-next-line no-undef
-  console.log(isSubmitting);
-
   const onSubmit = ({ userName, emailAddress, password, avatarImage }) => {
-    console.log(userName);
-    if (isSubmitting) {
-      setTimeout(() => {
-        new BlogService()
-          .updateUser(userName, emailAddress, password, avatarImage)
-          .then((user) => {
-            if (user.errors) {
-              dispatch(actionSuccessfulEditProfile(user));
-            } else {
-              dispatch(actionUpdateUser(user));
-              dispatch(
-                actionSuccessfulEditProfile(constants.SUCCESSFUL_REQUEST)
-              );
-            }
-          })
-          .catch((error) => {
-            dispatch(actionSuccessfulEditProfile(error.message));
-            dispatch(actionErrorDownload());
-          });
-      }, 10000);
-    }
+    new BlogService()
+      .updateUser(userName, emailAddress, password, avatarImage)
+      .then((user) => {
+        if (user.errors) {
+          dispatch(actionSuccessfulEditProfile(user));
+        } else {
+          dispatch(actionUpdateUser(user));
+          dispatch(actionSuccessfulEditProfile(constants.SUCCESSFUL_REQUEST));
+        }
+      })
+      .catch((error) => {
+        dispatch(actionSuccessfulEditProfile(error.message));
+        dispatch(actionErrorDownload());
+      });
   };
 
   const editUser =
@@ -86,118 +77,90 @@ const Profile = () => {
       <div className={classes.editProfile__container}>
         <h1 className={classes.editProfile__title}>Edit Profile</h1>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-          <label className={classes.form__label} htmlFor="userName">
-            Username
-          </label>
-          <input
-            defaultValue={users.user.username}
-            className={
-              errors.userName?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Username"
             type="text"
             placeholder="Username"
             id="userName"
-            {...register('userName', {
-              required: true,
-              minLength: 3,
-              maxLength: 20,
-            })}
+            defaultValue={users.user.username}
+            register={register}
+            required
+            minLength={3}
+            maxLength={20}
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'minLength',
+                message: 'Username must be between 3 and 20 characters',
+              },
+              {
+                typeError: 'maxLength',
+                message: 'Username must be between 3 and 20 characters',
+              },
+            ]}
           />
-          {(errors.userName?.type === 'minLength' ||
-            errors.userName?.type === 'maxLength') && (
-            <span className={classes.form__errorMessage}>
-              Username must be between 3 and 20 characters
-            </span>
-          )}
-          {errors.userName?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="emailAddress">
-            Email address
-          </label>
-          <input
-            defaultValue={users.user.email}
-            className={
-              errors.emailAddress?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Email address"
             type="text"
             placeholder="Email address"
             id="emailAddress"
-            {...register('emailAddress', {
-              required: true,
-              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/,
-            })}
+            defaultValue={users.user.email}
+            register={register}
+            required
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'pattern',
+                message: 'Invalid email address',
+              },
+            ]}
+            pattern={/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/}
           />
-          {errors.emailAddress?.type === 'pattern' && (
-            <span className={classes.form__errorMessage}>
-              Invalid email address
-            </span>
-          )}
-          {errors.emailAddress?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="password">
-            New password
-          </label>
-          <input
-            className={
-              errors.password?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="New password"
             type="password"
             placeholder="Password"
             id="password"
-            {...register('password', {
-              required: true,
-              minLength: 8,
-              maxLength: 40,
-            })}
+            register={register}
+            required
+            minLength={8}
+            maxLength={40}
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'minLength',
+                message: 'Your password needs to be at least 8 characters.',
+              },
+              {
+                typeError: 'maxLength',
+                message:
+                  'Your password must be no more than 40 characters long.',
+              },
+            ]}
           />
-          {(errors.password?.type === 'minLength' ||
-            errors.password?.type === 'maxLength') && (
-            <span className={classes.form__errorMessage}>
-              Your password needs to be at least 6 characters.
-            </span>
-          )}
-          {errors.password?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="avatarImage">
-            Avatar image (url)
-          </label>
-          <input
-            defaultValue={users.user.image}
-            className={classes.form__input}
+          <Inputs
+            label="Avatar image (url)"
             type="text"
             placeholder="Avatar image"
             id="avatarImage"
-            {...register('avatarImage', {
-              required: false,
-              pattern:
-                /(^https?:\/\/)?[a-z0-9~_\-.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i,
-            })}
+            defaultValue={users.user.image}
+            register={register}
+            required={false}
+            pattern={
+              /(^https?:\/\/)?[a-z0-9~_\-.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i
+            }
+            errors={errors}
+            errorObject={[
+              {
+                typeError: 'pattern',
+                message: 'Invalid url address.',
+              },
+            ]}
           />
-          {errors.avatarImage?.type === 'pattern' && (
-            <span className={classes.form__errorMessage}>
-              Invalid url address
-            </span>
-          )}
-          <button
-            className={classes.form__submit}
-            type="submit"
-            disabled={isSubmitting}
-          >
+          <button className={classes.form__submit} type="submit">
             Save
           </button>
         </form>

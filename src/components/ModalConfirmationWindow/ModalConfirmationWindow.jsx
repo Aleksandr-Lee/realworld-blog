@@ -20,14 +20,12 @@ const ModalConfirmationWindow = ({ slug }) => {
   const onDeleteArticle = () => {
     new BlogService().deleteArticle(slug.slug).then(() => {
       dispatch(actionSuccessfulDeleteArticle(true));
+      dispatch(actionSuccessfulDeleteArticle(false));
+      dispatch(actionModalConfirmationWindow(false));
     });
   };
 
   if (successfulDeleteArticle) {
-    setTimeout(() => {
-      dispatch(actionSuccessfulDeleteArticle(false));
-      dispatch(actionModalConfirmationWindow(false));
-    }, 500);
     return <Redirect to={route.listArticles} />;
   }
   return (

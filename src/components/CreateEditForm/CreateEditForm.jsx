@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import Inputs from '../Inputs';
 import classes from './CreateEditForm.module.scss';
 
 const CreateEditForm = ({ title, submit, valueInput }) => {
@@ -58,50 +59,32 @@ const CreateEditForm = ({ title, submit, valueInput }) => {
       <div className={classes.createEditArticleForm__container}>
         <h1 className={classes.createEditArticleForm__title}>{title}</h1>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-          <label className={classes.form__label} htmlFor="title">
-            Title
-          </label>
-          <input
-            className={
-              errors.title?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Title"
             type="text"
             placeholder="Title"
-            defaultValue={valueInput.title}
             id="title"
-            {...register('title', {
-              required: true,
-            })}
+            defaultValue={valueInput.title}
+            register={register}
+            required
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+            ]}
           />
-          {errors.title?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="shortDescription">
-            Short description
-          </label>
-          <input
-            className={
-              errors.shortDescription?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Short description"
             type="text"
-            placeholder="Title"
-            defaultValue={valueInput.shortDescription}
+            placeholder="Short description"
             id="shortDescription"
-            {...register('shortDescription', {
-              required: true,
-            })}
+            defaultValue={valueInput.shortDescription}
+            register={register}
+            required
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+            ]}
           />
-          {errors.shortDescription?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
           <label className={classes.form__label} htmlFor="text">
             Text
           </label>

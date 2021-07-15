@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
+import Inputs from '../Inputs';
 import route from '../../route';
 import ErrorIndicator from '../ErrorIndicator';
 import {
@@ -62,62 +64,35 @@ const SignIn = () => {
         <div className={classes.loginForm__container}>
           <h1 className={classes.loginForm__title}>Sign In</h1>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-            <label className={classes.form__label} htmlFor="emailAddress">
-              Email address
-            </label>
-            <input
-              className={
-                errors.emailAddress?.type
-                  ? `${classes.form__input} ${classes.error}`
-                  : `${classes.form__input}`
-              }
+            <Inputs
+              label="Email address"
               type="text"
               placeholder="Email address"
               id="emailAddress"
-              {...register('emailAddress', {
-                required: true,
-                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/,
-              })}
+              register={register}
+              required
+              errors={errors}
+              errorObject={[
+                { typeError: 'required', message: 'This is a required field' },
+                {
+                  typeError: 'pattern',
+                  message: 'Invalid email address',
+                },
+              ]}
+              pattern={/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/}
             />
-            {errors.emailAddress?.type === 'pattern' && (
-              <span className={classes.form__errorMessage}>
-                Invalid email address
-              </span>
-            )}
-            {errors.emailAddress?.type === 'required' && (
-              <span className={classes.form__errorMessage}>
-                This is a required field
-              </span>
-            )}
-            <label className={classes.form__label} htmlFor="password">
-              Password
-            </label>
-            <input
-              className={
-                errors.password?.type
-                  ? `${classes.form__input} ${classes.error}`
-                  : `${classes.form__input}`
-              }
+            <Inputs
+              label="Password"
               type="password"
               placeholder="Password"
               id="password"
-              {...register('password', {
-                required: true,
-                minLength: 8,
-                maxLength: 40,
-              })}
+              register={register}
+              required
+              errors={errors}
+              errorObject={[
+                { typeError: 'required', message: 'This is a required field' },
+              ]}
             />
-            {(errors.password?.type === 'minLength' ||
-              errors.password?.type === 'maxLength') && (
-              <span className={classes.form__errorMessage}>
-                Your password needs to be at least 6 characters.
-              </span>
-            )}
-            {errors.password?.type === 'required' && (
-              <span className={classes.form__errorMessage}>
-                This is a required field
-              </span>
-            )}
             <button className={classes.form__submit} type="submit">
               Login
             </button>

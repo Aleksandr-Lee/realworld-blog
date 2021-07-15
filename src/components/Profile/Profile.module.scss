@@ -46,27 +46,6 @@
 .form {
   display: flex;
   flex-direction: column;
-  &__label {
-    font-family: $fontFamilyRoboto;
-    color: #262626;
-    margin: 2px 0px;
-  }
-  &__input {
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    font-family: $fontFamilyRoboto;
-    font-size: 16px;
-    padding: 8px 12px;
-    margin-bottom: 12px;
-    outline: none;
-    &:focus {
-      border-color: $colorGreen;
-    }
-    &::placeholder {
-      color: #d9d9d9;
-    }
-  }
-
   &__submit {
     font-family: $fontFamilyRoboto;
     font-size: 16px;
@@ -79,14 +58,6 @@
     padding: 8px 16px;
     cursor: pointer;
   }
-  &__errorMessage {
-    font-family: $fontFamilyRoboto;
-    font-size: 14px;
-    line-height: 22px;
-    color: $colorRed;
-    margin-top: -13px;
-    margin-bottom: 10px;
-  }
 }
 .error {
   outline: none;
@@ -97,4 +68,3 @@
   margin-bottom: 13px;
   border-color: $colorRed !important;
 }
-

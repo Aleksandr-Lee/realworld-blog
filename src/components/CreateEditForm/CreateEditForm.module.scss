@@ -113,6 +113,9 @@
     &:focus {
       border-color: $colorGreen;
     }
+    &::placeholder {
+      color: #d9d9d9;
+    }
   }
 
   &__tagsWrapper {

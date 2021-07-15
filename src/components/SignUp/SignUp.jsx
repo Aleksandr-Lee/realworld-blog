@@ -1,16 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import BlogService from '../../services/BlogService';
 import ErrorIndicator from '../ErrorIndicator';
 import constants from '../../constants';
 import route from '../../route';
+import Inputs from '../Inputs';
 import { actionSuccessfulCreate } from '../../redux/actions/users';
 import { actionErrorDownload } from '../../redux/actions/listArticles';
 import classes from './SignUp.module.scss';
 
 const SignUp = () => {
+  const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
   const successfulCreate = useSelector(
     (state) => state.usersReducer.successfulCreate
@@ -33,6 +35,9 @@ const SignUp = () => {
           dispatch(actionSuccessfulCreate(users));
         } else {
           dispatch(actionSuccessfulCreate(constants.SUCCESSFUL_REQUEST));
+          setTimeout(() => {
+            setRedirect(true);
+          }, 3000);
         }
       })
       .catch((error) => {
@@ -48,7 +53,9 @@ const SignUp = () => {
 
   const createUser =
     successfulCreate === constants.SUCCESSFUL_REQUEST ? (
-      <p className={classes.createSuccess}>You have successfully registered</p>
+      <p className={classes.createSuccess}>
+        You have successfully registered, redirect to sign-in page
+      </p>
     ) : null;
 
   if (
@@ -57,7 +64,11 @@ const SignUp = () => {
   ) {
     setTimeout(() => {
       dispatch(actionSuccessfulCreate(false));
-    }, 5000);
+    }, 3000);
+  }
+
+  if (redirect) {
+    return <Redirect to={route.signIn} />;
   }
 
   if (errorDownload) {
@@ -71,113 +82,83 @@ const SignUp = () => {
       <div className={classes.regForm__container}>
         <h1 className={classes.regForm__title}>Create new account</h1>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-          <label className={classes.form__label} htmlFor="userName">
-            Username
-          </label>
-          <input
-            className={
-              errors.userName?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Username"
             type="text"
             placeholder="Username"
             id="userName"
-            {...register('userName', {
-              required: true,
-              minLength: 3,
-              maxLength: 20,
-            })}
+            register={register}
+            required
+            minLength={3}
+            maxLength={20}
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'minLength',
+                message: 'Username must be between 3 and 20 characters',
+              },
+              {
+                typeError: 'maxLength',
+                message: 'Username must be between 3 and 20 characters',
+              },
+            ]}
           />
-          {(errors.userName?.type === 'minLength' ||
-            errors.userName?.type === 'maxLength') && (
-            <span className={classes.form__errorMessage}>
-              Username must be between 3 and 20 characters
-            </span>
-          )}
-          {errors.userName?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="emailAddress">
-            Email address
-          </label>
-          <input
-            className={
-              errors.emailAddress?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Email address"
             type="text"
             placeholder="Email address"
             id="emailAddress"
-            {...register('emailAddress', {
-              required: true,
-              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/,
-            })}
+            register={register}
+            required
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'pattern',
+                message: 'Invalid email address',
+              },
+            ]}
+            pattern={/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/}
           />
-          {errors.emailAddress?.type === 'pattern' && (
-            <span className={classes.form__errorMessage}>
-              Invalid email address
-            </span>
-          )}
-          {errors.emailAddress?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="password">
-            Password
-          </label>
-          <input
-            className={
-              errors.password?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Password"
             type="password"
             placeholder="Password"
             id="password"
-            {...register('password', {
-              required: true,
-              minLength: 8,
-              maxLength: 40,
-            })}
+            register={register}
+            required
+            minLength={8}
+            maxLength={40}
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+              {
+                typeError: 'minLength',
+                message: 'Your password needs to be at least 8 characters.',
+              },
+              {
+                typeError: 'maxLength',
+                message:
+                  'Your password must be no more than 40 characters long.',
+              },
+            ]}
           />
-          {(errors.password?.type === 'minLength' ||
-            errors.password?.type === 'maxLength') && (
-            <span className={classes.form__errorMessage}>
-              Your password needs to be at least 6 characters.
-            </span>
-          )}
-          {errors.password?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
-            </span>
-          )}
-          <label className={classes.form__label} htmlFor="repeatPassword">
-            Repeat Password
-          </label>
-          <input
-            className={
-              errors.repeatPassword?.type
-                ? `${classes.form__input} ${classes.error}`
-                : `${classes.form__input}`
-            }
+          <Inputs
+            label="Repeat Password"
             type="password"
             placeholder="Repeat Password"
             id="repeatPassword"
-            {...register('repeatPassword', { required: true })}
+            register={register}
+            required
+            errors={errors}
+            errorObject={[
+              { typeError: 'required', message: 'This is a required field' },
+            ]}
           />
           {watch('password') !== watch('repeatPassword') && (
             <span className={classes.form__errorMessage}>
               Passwords must match
-            </span>
-          )}
-          {errors.repeatPassword?.type === 'required' && (
-            <span className={classes.form__errorMessage}>
-              This is a required field
             </span>
           )}
           <hr className={classes.form__line} />
